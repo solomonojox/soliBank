@@ -1,0 +1,106 @@
+// const express = require('express');
+// const router = express.Router();
+const Request = require('../Models/requestDB');
+const User = require('../Models/userDB');
+
+// @route   POST /api/requests
+// @desc    Create a money request
+// @access  Public
+const requestFunds = async (req, res) => {
+  const { requesterEmail, recipientEmail, amount } = req.body;
+
+  try {
+    const requester = await User.findOne({ email: requesterEmail });
+    const recipient = await User.findOne({ email: recipientEmail });
+
+    if (!requester || !recipient) {
+        return res.status(404).json({ msg: 'User not found, please confirm the email address' });
+    }
+    if (requesterEmail === recipientEmail){
+        return res.status(404).json({msg: 'You can not place request to yourself'})
+    }
+
+    const newRequest = new Request({
+        requester: requester._id,
+        recipient: recipient._id,
+        amount,
+    });
+
+    await newRequest.save();
+    res.status(201).json({ msg: 'Request created successfully', request: newRequest });
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server error' });
+    }
+};
+
+const acceptFunds = async (req, res) => {
+  try {
+      const request = await Request.findById(req.params.id).populate('requester').populate('recipient');
+
+      if (!request) {
+          return res.status(404).json({ msg: 'Request not found' });
+      }
+
+      if (request.status !== 'pending') {
+          return res.status(400).json({ msg: 'Request has already been processed' });
+      }
+
+      const { requester, recipient, amount } = request;
+
+      if (recipient.balance < amount) {
+          return res.status(400).json({ msg: 'Insufficient funds' });
+      }
+
+      // Debit the recipient
+      recipient.balance -= amount;
+      await recipient.save();
+
+      // Credit the requester
+      requester.balance += amount;
+      await requester.save();
+
+      // Update request status
+      request.status = 'accepted';
+      await request.save();
+
+      res.status(200).json({ msg: 'Request accepted successfully', request });
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+const requestList = async (req, res) => {
+    try {
+        const recipient = await User.findOne({ email: req.params.email });
+        if (!recipient) {
+            return res.status(404).json({ msg: 'Recipient not found' });
+        }
+
+        const requests = await Request.find({ recipient: recipient._id })
+            .populate('requester')
+            .sort({ createdAt: -1 });
+        res.status(200).json({ requests });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+}
+
+const getRequestHistory = async (req, res) => {
+    try {
+        try {
+            const requests = await Request.find().populate('requester').populate('recipient');
+            res.status(200).json({ requests });
+          } catch (err) {
+            console.error(err.message);
+            res.status(500).json({ msg: 'Server error' });
+          }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+}
+
+module.exports = { requestFunds, acceptFunds, requestList, getRequestHistory };

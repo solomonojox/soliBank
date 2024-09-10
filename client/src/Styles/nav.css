@@ -1,0 +1,41 @@
+.nav_side{
+  background-color: #fff5ff;
+  /* background: url(/server/uploads/1725275292473-266623070.jpg); */
+  padding: 5px 20px;
+  width: 100%;
+  border-radius: 10px;
+}
+.nav_side:hover{
+  background-color: #f7d2f7;
+  transition: all 0.3s ease;
+}
+
+/* Add to your nav.css file */
+.nav_toggle {
+  display: none; /* hide toggle button on desktop */
+}
+
+.nav_menu {
+  display: none; /* hide menu on desktop */
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .nav_toggle {
+    display: block; /* show toggle button on mobile */
+  }
+  .nav_menu {
+    display: block; /* show menu on mobile */
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-color: purple;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  .nav_side {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
