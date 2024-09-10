@@ -14,7 +14,7 @@ const RequestFunds = () => {
 
   useEffect(() => {
     // Fetch incoming requests
-    axios.get(`http://localhost:5000/api/transactions/recipient/${location.state.email}`)
+    axios.get(`https://solibank.onrender.com/api/transactions/recipient/${location.state.email}`)
       .then((res) => {
           setRequests(res.data.requests);
       })
@@ -28,7 +28,7 @@ const RequestFunds = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/transactions/request', {
+      const response = await axios.post('https://solibank.onrender.com/api/transactions/request', {
         requesterEmail: location.state.email,
         recipientEmail,
         amount: parseFloat(amount),
@@ -45,7 +45,7 @@ const RequestFunds = () => {
 
   const handleAcceptRequest = async (requestId) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/transactions/accept/${requestId}`);
+      const response = await axios.post(`https://solibank.onrender.com/api/transactions/accept/${requestId}`);
       if (response.data.msg === 'Request accepted successfully') {
           setRequests(requests.filter(request => request._id !== requestId));
           alert('Request accepted successfully!');

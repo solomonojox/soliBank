@@ -23,7 +23,7 @@ function Deposit() {
     e.preventDefault();
 
     try{
-      const response = await axios.post('http://localhost:5000/api/transactions/deposit', {
+      const response = await axios.post('https://solibank.onrender.com/api/transactions/deposit', {
         accountNumber: location.state.accountNumber,
         amount,
         description

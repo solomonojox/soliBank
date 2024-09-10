@@ -51,7 +51,7 @@ const Register = () => {
         // console.log(registrationData)
 
         try {
-            const response = await axios.post('http://localhost:5000/api/users/register', registrationData, {
+            const response = await axios.post('https://solibank.onrender.com/api/users/register', registrationData, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

@@ -17,7 +17,7 @@ function Transfer() {
     e.preventDefault();
 
     try {
-        const response = await axios.post('http://localhost:5000/api/transactions/transfer', {
+        const response = await axios.post('https://solibank.onrender.com/api/transactions/transfer', {
             fromAccount: location.state.accountNumber,
             toAccount,
             amount,

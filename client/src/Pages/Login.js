@@ -12,7 +12,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:5000/api/users/login', {
+        axios.post('https://solibank.onrender.com/api/users/login', {
             email,
             password,
         })

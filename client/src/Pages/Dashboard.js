@@ -27,7 +27,7 @@ function Dashboard() {
     const fetchUser = async () => {
       try {
         const response = await axios({
-          url: `http://localhost:5000/api/info?email=${location.state.email}`,
+          url: `https://solibank.onrender.com/api/info?email=${location.state.email}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ function Dashboard() {
     const fetchTransactions = async () => {
       try {
         const response = await axios({
-          url: `http://localhost:5000/api/transactions/history?userId=${location.state._id}`,
+          url: `https://solibank.onrender.com/api/transactions/history?userId=${location.state._id}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
