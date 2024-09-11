@@ -81,7 +81,7 @@ const Register = () => {
                     <div>
                         <label>Full name:</label> <br/>
                         <input
-                            className='w-[100%] p-1 bg-[#e8f0fe] rounded mb-4 '
+                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -90,7 +90,7 @@ const Register = () => {
                     <div>
                         <label>Username:</label><br/>
                         <input
-                            className='w-[100%] p-1 bg-[#e8f0fe] rounded mb-4 '
+                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -99,7 +99,7 @@ const Register = () => {
                     <div>
                         <label>Email:</label><br/>
                         <input
-                            className='w-[100%] p-1 bg-[#e8f0fe] rounded mb-4 '
+                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +108,7 @@ const Register = () => {
                     <div>
                         <label>Password:</label><br/>
                         <input
-                            className='w-[100%] p-1 bg-[#e8f0fe] rounded mb-4 '
+                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +117,7 @@ const Register = () => {
                     <div>
                         <label>Photo:</label><br/>
                         <input
-                            className='w-[100%] p-1 bg-[#e8f0fe] rounded mb-4 '
+                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-2 border border-black '
                             type="file"
                             onChange={handlePhotoChange}
                         />
