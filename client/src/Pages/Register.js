@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -11,6 +11,7 @@ const Register = () => {
     const [accountNumber, setAccountNumber] = useState('');
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
+    const navigate = useNavigate()
 
     const handlePhotoChange = (e) => {
         setPhoto(e.target.files[0]);
@@ -64,6 +65,10 @@ const Register = () => {
             // Store login token
             localStorage.setItem('token', response.data.token);
 
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
+
             console.log('Registration successful:', response.data);
         } catch (error) {
             setMessage(error.response.data.msg);
@@ -74,14 +79,14 @@ const Register = () => {
 
     return (
         <div className='bg-[#d0bbd0] w-[100%] flex flex-col items-center justify-center p-4 '>
-            <div className='bg-white p-5 md:w-[400px] '>
+            <div className='bg-[white] p-5 md:w-[400px] '>
 
                 <h2 className='text-[30px] font-medium mb-4 '>Register</h2>
                 <form onSubmit={handleRegister} encType='multipart/form-data'>
                     <div>
                         <label>Full name:</label> <br/>
                         <input
-                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -90,7 +95,7 @@ const Register = () => {
                     <div>
                         <label>Username:</label><br/>
                         <input
-                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -99,7 +104,7 @@ const Register = () => {
                     <div>
                         <label>Email:</label><br/>
                         <input
-                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +113,7 @@ const Register = () => {
                     <div>
                         <label>Password:</label><br/>
                         <input
-                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +122,7 @@ const Register = () => {
                     <div>
                         <label>Photo:</label><br/>
                         <input
-                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="file"
                             onChange={handlePhotoChange}
                         />

@@ -20,7 +20,9 @@ const Login = () => {
       setMessage('Login successful!');
       setIsSuccess(true);
       localStorage.setItem('token', res.data.token);
-      navigate('/dashboard', { state: res.data.userDto });
+      setTimeout(() => {
+        navigate('/dashboard', { state: res.data.userDto });
+      }, 1500);
       console.log(res.data.userDto);
     })
     .catch((error) => {

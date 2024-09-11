@@ -28,6 +28,10 @@ function Transfer() {
         alert(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
         console.log(response.data)
         setIsSuccess(true);
+        // Clear fields
+        setToAccount('');
+        setAmount('');
+        setDescription('');
     } catch (error) {
         setMessage(error.response.data.msg);
         setIsSuccess(false);

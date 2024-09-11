@@ -38,6 +38,10 @@ const RequestFunds = () => {
       setMessage(response.data.msg);
       alert(response.data.msg);
       setIsSuccess(true);
+      // Clear the form fields
+      setRecipientEmail('');
+      setAmount('');
+      setDescription('');
     } catch (err) {
       console.error('Error requesting money:', err.response.data);
       setMessage(err.response.data.msg);
@@ -55,6 +59,19 @@ const RequestFunds = () => {
     } catch (err) {
       console.error('Error accepting request:', err);
       setMessage('Failed to accept request. Please try again later.');
+    }
+  };
+
+  const handleRejectRequest = async (requestId) => {
+    try {
+      const response = await axios.post(`https://solibank.onrender.com/api/transactions/reject/${requestId}`);
+      if (response.data.msg === 'Request rejected successfully') {
+          setRequests(requests.filter(request => request._id !== requestId));
+          alert('Request rejected successfully!');
+      }
+    } catch (err) {
+      console.error('Error rejecting request:', err);
+      setMessage('Failed to reject request. Please try again later.');
     }
   };
 
@@ -131,13 +148,19 @@ const RequestFunds = () => {
                         {request.status === 'accepted' && (
                             <span className='text-[green] '>{request.status}</span>
                         )}
+                        {request.status === 'rejected' && (
+                            <span className='text-[red] '>{request.status}</span>
+                        )}
                         {request.status === 'pending' && (
                             <span className='text-[#dc9f05] '>{request.status}</span>
                         )}
                       </div>
                       <div className='md:ml-4'>
                         {request.status === 'pending' && (
-                          <button onClick={() => handleAcceptRequest(request._id)} className='bg-[purple] rounded p-2 text-[12px] text-[white] '>Accept Request</button>
+                          <div className='flex gap-2'>
+                            <button onClick={() => handleAcceptRequest(request._id)} className='bg-[purple] rounded p-2 text-[12px] text-[white] '>Accept</button>
+                            <button onClick={() => handleRejectRequest(request._id)} className='bg-[red] rounded p-2 text-[12px] text-[white] '>Reject</button>
+                          </div>
                         )}
                       </div>
                     </div>

@@ -31,6 +31,10 @@ function Deposit() {
         setMessage(`${response.data.msg}, New balance: ₦ ${response.data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
         alert(`${response.data.msg}, New balance: ₦ ${response.data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
         setIsSuccess(true)
+        // clear field
+        setAmount('');
+        setDescription('');
+
         console.log(response)
     } catch (error){
       setMessage(error.response.data.msg)

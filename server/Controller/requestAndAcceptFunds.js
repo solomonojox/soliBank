@@ -47,8 +47,14 @@ const acceptFunds = async (req, res) => {
           return res.status(404).json({ msg: 'Request not found' });
       }
 
-      if (request.status !== 'pending') {
-          return res.status(400).json({ msg: 'Request has already been processed' });
+    //   if (request.status !== 'pending') {
+    //       return res.status(400).json({ msg: 'Request has already been processed' });
+    //   }
+      if(request.status === 'accepted'){
+          return res.status(400).json({ msg: 'Request has already been accepted' });
+      }
+      if (request.status === 'rejected'){
+          return res.status(400).json({ msg: 'Request was already rejected' });
       }
 
       const { requester, recipient, amount } = request;
@@ -81,6 +87,9 @@ const rejectRequest = async (req, res) => {
         const request = await Request.findById(req.params.id);
         if (!request) {
             return res.status(404).json({ msg: 'Request not found' });
+        }
+        if(request.status === 'accepted'){
+            return res.status(400).json({ msg: 'Request has already been accepted' });
         }
         request.status = 'rejected';
         await request.save();
