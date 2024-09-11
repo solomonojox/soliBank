@@ -116,7 +116,7 @@ function Dashboard() {
                     <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
                     <div>
                       <h3 className='text-[14px] font-bold '>Welcome, {user.name}</h3>
-                      <p className='text-[12px] my-[-5px] text-[purple] '>account no - {user.accountNumber}</p>
+                      <p className='text-[12px] my-[-5px] text-[purple] '>account no. - {user.accountNumber}</p>
                       <p className='text-[12px] my-[-5px] text-[purple] '>{user.email}</p>
                     </div>
                   </div>
