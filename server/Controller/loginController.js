@@ -4,6 +4,9 @@ const User = require('../Models/userDB');
 
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
+    if(!email || !password){
+        return res.status(401).send({ message: 'All fields are required' });
+    }
 
     try {
         const user = await User.findOne({ email });

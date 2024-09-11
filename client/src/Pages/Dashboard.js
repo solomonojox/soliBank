@@ -137,19 +137,19 @@ function Dashboard() {
                   <p className='text-white'>Transactions</p>
                   <div className='bg-[purple] w-[100%] text-white md:hidden flex justify-between '>
                     <div onClick={() => navigateTransfer()}>
-                      <img src='../images/transfer-icon.png' className='rounded-full bg-white w-[50px] ' alt='icon' />
+                      <img src='../images/transfer-icon.png' className='rounded-full bg-white w-[30px] ' alt='icon' />
                       <p>Transfer</p>
                     </div>
                     <div onClick={() => navigateRequest()}>
-                      <img src='../images/request.svg' className='rounded-full bg-white p-2 w-[50px] ' alt='icon' />
+                      <img src='../images/request.svg' className='rounded-full bg-white p-2 w-[30px] ' alt='icon' />
                       <p>Request</p>
                     </div>
                     <div onClick={() => navigateRequest()}>
-                      <img src='../images/airtime.svg' className='rounded-full bg-white p-2 w-[50px] h-[50px] ' alt='icon' />
+                      <img src='../images/airtime.svg' className='rounded-full bg-white p-2 w-[30px] h-[50px] ' alt='icon' />
                       <p>Airtime</p>
                     </div>
                     <div onClick={() => navigateRequest()}>
-                      <img src='../images/data.svg' className='rounded-full bg-white p-2 w-[50px] h-[50px] ' alt='icon' />
+                      <img src='../images/data.svg' className='rounded-full bg-white p-2 w-[30px] h-[30px] ' alt='icon' />
                       <p>Data</p>
                     </div>
                   </div>
