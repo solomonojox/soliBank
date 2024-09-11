@@ -73,15 +73,15 @@ const Register = () => {
     };
 
     return (
-        <div className='md:bg-[purple] h-[100vh] w-[100%] flex flex-col items-center justify-center '>
-            <div className='bg-white p-10 md:w-[400px] '>
+        <div className='bg-[#d0bbd0] h-[100vh] w-[100%] flex flex-col items-center justify-center p-4 '>
+            <div className='bg-white p-5 md:w-[400px] '>
 
                 <h2 className='text-[30px] font-medium mb-4 '>Register</h2>
                 <form onSubmit={handleRegister} encType='multipart/form-data'>
                     <div>
                         <label>Full name:</label> <br/>
                         <input
-                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -90,7 +90,7 @@ const Register = () => {
                     <div>
                         <label>Username:</label><br/>
                         <input
-                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -99,7 +99,7 @@ const Register = () => {
                     <div>
                         <label>Email:</label><br/>
                         <input
-                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +108,7 @@ const Register = () => {
                     <div>
                         <label>Password:</label><br/>
                         <input
-                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-1 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -117,14 +117,14 @@ const Register = () => {
                     <div>
                         <label>Photo:</label><br/>
                         <input
-                            className='w-[100%] p-2 bg-[#e8f0fe66] rounded mb-2 border border-black '
+                            className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-black '
                             type="file"
                             onChange={handlePhotoChange}
                         />
                     </div>
                     <div className='flex items-center gap-5'>
                         <button type="submit" className='bg-[purple] py-2 px-4 text-white font-medium '>Register</button>
-                        <p className={`${isSuccess ? 'hidden' : 'block'}`}>Already registered? <Link to='/login' className='text-[green] font-bold '>Sign in</Link></p>
+                        <p className={`${isSuccess ? 'hidden' : 'block'} text-[14px]`}>Already registered? <Link to='/login' className='text-[green] font-bold '>Sign in</Link></p>
                     </div>
                 </form>
                 {message && <p className={`text-[${isSuccess ? 'green' : 'red'}]`}>{message}</p>}

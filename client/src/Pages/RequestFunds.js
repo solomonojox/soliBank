@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const RequestFunds = () => {
   const [recipientEmail, setRecipientEmail] = useState('');
   const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('')
   const [requests, setRequests] = useState([]);
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
@@ -32,6 +33,7 @@ const RequestFunds = () => {
         requesterEmail: location.state.email,
         recipientEmail,
         amount: parseFloat(amount),
+        description
       });
       setMessage(response.data.msg);
       alert(response.data.msg);
@@ -87,6 +89,17 @@ const RequestFunds = () => {
                 name="amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
+                required
+            />
+          </div>
+          <div>
+            <label>Description:</label><br />
+            <input
+                className='p-1 bg-[#e8f0fe] w-[100%] mb-4 rounded '
+                type="text"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 required
             />
           </div>

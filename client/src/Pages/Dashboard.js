@@ -136,21 +136,21 @@ function Dashboard() {
                 <div className='bg-[purple] mt-10 p-4 grid gap-2 rounded-lg mb-5 md:hidden'>
                   <p className='text-white'>Transactions</p>
                   <div className='bg-[purple] w-[100%] text-white md:hidden flex justify-between '>
-                    <div onClick={() => navigateTransfer()}>
-                      <img src='../images/transfer-icon.png' className='rounded-full bg-white w-[30px] ' alt='icon' />
-                      <p>Transfer</p>
+                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateTransfer()}>
+                      <img src='../images/transfer-icon.png' className='rounded-full bg-white w-[40px] ' alt='icon' />
+                      <p className='text-[12px]'>Transfer</p>
                     </div>
-                    <div onClick={() => navigateRequest()}>
-                      <img src='../images/request.svg' className='rounded-full bg-white p-2 w-[30px] ' alt='icon' />
-                      <p>Request</p>
+                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateRequest()}>
+                      <img src='../images/request.svg' className='rounded-full bg-white p-2 w-[40px] ' alt='icon' />
+                      <p className='text-[12px]'>Request</p>
                     </div>
-                    <div onClick={() => navigateRequest()}>
-                      <img src='../images/airtime.svg' className='rounded-full bg-white p-2 w-[30px] h-[50px] ' alt='icon' />
-                      <p>Airtime</p>
+                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateRequest()}>
+                      <img src='../images/airtime.svg' className='rounded-full bg-white p-2 w-[40px] h-[40px] ' alt='icon' />
+                      <p className='text-[12px]'>Airtime</p>
                     </div>
-                    <div onClick={() => navigateRequest()}>
-                      <img src='../images/data.svg' className='rounded-full bg-white p-2 w-[30px] h-[30px] ' alt='icon' />
-                      <p>Data</p>
+                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateRequest()}>
+                      <img src='../images/data.svg' className='rounded-full bg-white p-2 w-[40px] h-[40px] ' alt='icon' />
+                      <p className='text-[12px]'>Data</p>
                     </div>
                   </div>
                 </div>

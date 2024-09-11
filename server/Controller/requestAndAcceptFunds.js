@@ -7,7 +7,7 @@ const User = require('../Models/userDB');
 // @desc    Create a money request
 // @access  Public
 const requestFunds = async (req, res) => {
-  const { requesterEmail, recipientEmail, amount } = req.body;
+  const { requesterEmail, recipientEmail, amount, description } = req.body;
 
   try {
     const requester = await User.findOne({ email: requesterEmail });
@@ -20,10 +20,15 @@ const requestFunds = async (req, res) => {
         return res.status(404).json({msg: 'You can not place request to yourself'})
     }
 
+    if (!description) {
+        return res.status(400).json({ msg: 'You must add a description' });
+    }
+
     const newRequest = new Request({
         requester: requester._id,
         recipient: recipient._id,
         amount,
+        description
     });
 
     await newRequest.save();
