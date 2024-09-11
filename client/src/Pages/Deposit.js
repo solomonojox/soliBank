@@ -39,43 +39,35 @@ function Deposit() {
   }
 
   return (
-    <div className='flex items-center justify-center h-[100vh] bg-[#fff5ff] '>
-      <div className='w-[450px] bg-white p-8 '>
+    <div className='md:flex items-center justify-center h-[100vh] md:bg-[#fff5ff] '>
+      <div className='md:w-[450px] bg-white p-8 '>
         <div className='border-b py-4 mb-10 '>
-            <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-1 px-4 rounded-lg hover:bg-[#a617a6] '>Dashboard</button>
+            <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>
+              <img src='../images/back-arrow.svg' alt='icon' className='w-[20px] ' />
+              Dashboard</button>
         </div>
         <h2 className='text-[30px] font-medium mb-4 '>Deposit Funds</h2>
         <form onSubmit={handleDeposit}>
-          {/* <div>
-            <label>Account Number:</label>
-            <input
-              type="text"
-              name="accountNumber"
-              value={this.state.accountNumber}
-              onChange={this.handleChange}
-            />
-          </div> */}
           <div>
             <label>Amount<span className='text-[red]'>*</span></label><br/>
             <input
-              className='p-1 bg-[#e8f0fe] w-[100%] mb-4 rounded '
+              className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
               type="number"
               name="amount"
-              // value={this.state.amount}
               onChange={(e) => setAmount(parseInt(e.target.value), 10)}
             />
           </div>
           <div>
             <label>Description<span className='text-[red]'>*</span></label>
             <input
-              className='p-1 bg-[#e8f0fe] w-[100%] mb-4 rounded '
+              className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
               type="text"
               name="description"
-              // value={this.state.description}
               onChange={(e) => setDescription(e.target.value)}
+              required
             />
           </div>
-          <button type="submit" className='bg-[purple] text-white py-1 px-4 hover:bg-[#a617a6]'>Deposit</button>
+          <button type="submit" className='bg-[purple] text-white py-2 px-4 hover:bg-[#a617a6] rounded-md'>Deposit</button>
         </form>
         <p className={`text-[${isSuccess ? 'green' : 'red'}] ${isSuccess ? 'hidden':'block'}`}>{message}</p>
       </div>

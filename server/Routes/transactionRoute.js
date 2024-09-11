@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { registerUser } = require('../Controller/user');
 const { depositFunds, transferFunds, getTransactionHistory } = require('../Controller/transaction');
-const { requestFunds, acceptFunds, requestList, getRequestHistory } = require('../Controller/requestAndAcceptFunds')
+const { requestFunds, acceptFunds, requestList, rejectRequest, getRequestHistory } = require('../Controller/requestAndAcceptFunds')
 
 router.post('/register', registerUser);
 
@@ -17,6 +17,9 @@ router.post('/request', requestFunds);
 
 // POST /api/transactions/accept
 router.post('/accept/:id', acceptFunds);
+
+// POST /api/transactions/reject
+router.post('/reject/:id', rejectRequest);
 
 // GET /api/transactions/list
 router.get('/recipient/:email', requestList);

@@ -68,6 +68,12 @@ function Dashboard() {
   const navigateRequest = () => {
     navigate(`/request-funds`, { state: location.state });
   }
+  const navigateAirtime = () => {
+    navigate(`/airtime`, { state: location.state });
+  }
+  const navigateData = () => {
+    navigate(`/data`, { state: location.state });
+  }
 
   const handleLogout = () => {
     // Clear token from localStorage or cookies
@@ -99,7 +105,7 @@ function Dashboard() {
               {/* Nav */}
               <div className='hidden w-[240px] bg-[purple] md:flex flex-col gap-5 p-4 justify-center '>
                 <div className='flex flex-col justify-center items-center '>
-                  <img src={user.profileImg} alt='profile' className='rounded-full w-[80px] h-[80px] object-cover ' />
+                  <img src={user.profileImg} alt='profile' className='rounded-full w-[10px] h-[10px] object-cover ' />
                   <h3 className='text-white font-bold text-[14px] '>{user.name}</h3>
                 </div>
                 <button className='nav_side' onClick={() => navigateDeposit()} >Deposit</button>
@@ -126,15 +132,15 @@ function Dashboard() {
                 {/* Balance */}
                 <div className='bg-[purple] rounded-lg px-4 py-2 flex justify-between items-start text-white mt-5 md:hidden '>
                   <div>
-                    <p>Available Balance</p>
-                    <h2 className='text-[25px] font-bold '>₦ {user.balance}</h2>
+                    <p className='font-bold'>Available Balance</p>
+                    <h2 className='text-[20px] font-bold '>₦ {user.balance}</h2>
                   </div>
-                  <button className='bg-[#fff5ff] text-[purple] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => navigateDeposit()}>Deposit</button>
+                  <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-2 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => navigateDeposit()}>Deposit</button>
                 </div>
 
-                {/* Tranfer and request */}
-                <div className='bg-[purple] mt-10 p-4 grid gap-2 rounded-lg mb-5 md:hidden'>
-                  <p className='text-white'>Transactions</p>
+                {/* Tranfer, request, airtime and data */}
+                <div className='bg-[purple] mt-10 py-4 px-5 grid gap-2 rounded-lg mb-5 md:hidden'>
+                  <p className='text-white font-bold'>Transactions</p>
                   <div className='bg-[purple] w-[100%] text-white md:hidden flex justify-between '>
                     <div className='flex flex-col gap-2 items-center' onClick={() => navigateTransfer()}>
                       <img src='../images/transfer-icon.png' className='rounded-full bg-white w-[40px] ' alt='icon' />
@@ -144,11 +150,11 @@ function Dashboard() {
                       <img src='../images/request.svg' className='rounded-full bg-white p-2 w-[40px] ' alt='icon' />
                       <p className='text-[12px]'>Request</p>
                     </div>
-                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateRequest()}>
+                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateAirtime()}>
                       <img src='../images/airtime.svg' className='rounded-full bg-white p-2 w-[40px] h-[40px] ' alt='icon' />
                       <p className='text-[12px]'>Airtime</p>
                     </div>
-                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateRequest()}>
+                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateData()}>
                       <img src='../images/data.svg' className='rounded-full bg-white p-2 w-[40px] h-[40px] ' alt='icon' />
                       <p className='text-[12px]'>Data</p>
                     </div>

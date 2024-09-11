@@ -63,17 +63,20 @@ const RequestFunds = () => {
   };
 
   return (
-    <div className='flex items-center justify-center bg-[#fff5ff] '>
-      <div className=' bg-white p-8 '>
+    <div className='items-center justify-center bg-[#fff5ff] '>
+      <div className=' bg-[white] p-8 '>
         <div className='border-b py-4 mb-10 '>
-            <button onClick={navigateDashboard} className='bg-[purple] text-white py-1 px-4 rounded-lg hover:bg-[#a617a6] '>Dashboard</button>
+          <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>
+            <img src='../images/back-arrow.svg' alt='icon' className='w-[20px] ' />
+            Dashboard
+          </button>
         </div>
         <h2 className='text-[30px] font-medium mb-4 '>Request Money</h2>
         <form onSubmit={handleRequestMoney}>
           <div>
             <label>Recipient's Email:</label><br />
             <input
-                className='p-1 bg-[#e8f0fe] w-[100%] mb-4 rounded '
+                className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                 type="email"
                 name="recipientEmail"
                 value={recipientEmail}
@@ -84,7 +87,7 @@ const RequestFunds = () => {
           <div>
             <label>Amount:</label><br />
             <input
-                className='p-1 bg-[#e8f0fe] w-[100%] mb-4 rounded '
+                className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                 type="number"
                 name="amount"
                 value={amount}
@@ -95,7 +98,7 @@ const RequestFunds = () => {
           <div>
             <label>Description:</label><br />
             <input
-                className='p-1 bg-[#e8f0fe] w-[100%] mb-4 rounded '
+                className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                 type="text"
                 name="description"
                 value={description}
@@ -103,7 +106,7 @@ const RequestFunds = () => {
                 required
             />
           </div>
-          <button type="submit" className='bg-[purple] text-white py-1 px-4 hover:bg-[#a617a6]'>Request Money</button>
+          <button type="submit" className='bg-[purple] text-white py-2 px-4 hover:bg-[#a617a6] rounded-md'>Request Money</button>
           <p className={`text-[${isSuccess ? 'green' : 'red'}] ${isSuccess ? 'hidden':'block'}` }>{message}</p>
         </form>
 
@@ -116,21 +119,27 @@ const RequestFunds = () => {
             <ul>
               {requests.map(request => (
                 <li key={request._id} className='bg-[white] p-2 shadow-lg my-2 rounded'>
-                  <div className='flex'>
-                    <div className='font-medium w-[150px] '>{request.requester.name}</div> <span className='w-[100px] '>requested</span>
-                    <div className='font-medium w-[80px] '> ₦{request.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
-                    <div>
-                      {request.status === 'accepted' && (
-                          <span className='text-[green] '>{request.status}</span>
-                      )}
-                      {request.status === 'pending' && (
-                          <span className='text-[#dc9f05] '>{request.status}</span>
-                      )}
+                  <div className='flex flex-col gap-2'>
+                    <div className='flex justify-between '>
+                      <span className='font-medium' >{request.requester.name}</span>
+                      <span>requested</span>
+                      <span className='font-medium '>₦{request.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     </div>
-                    <div className='ml-4'>
-                      {request.status === 'pending' && (
-                        <button onClick={() => handleAcceptRequest(request._id)} className='bg-[purple] rounded px-2 text-[12px] text-[white] '>Accept Request</button>
-                      )}
+                    <p>{request.description}</p>
+                    <div className='flex gap-4 '>
+                      <div>
+                        {request.status === 'accepted' && (
+                            <span className='text-[green] '>{request.status}</span>
+                        )}
+                        {request.status === 'pending' && (
+                            <span className='text-[#dc9f05] '>{request.status}</span>
+                        )}
+                      </div>
+                      <div className='md:ml-4'>
+                        {request.status === 'pending' && (
+                          <button onClick={() => handleAcceptRequest(request._id)} className='bg-[purple] rounded p-2 text-[12px] text-[white] '>Accept Request</button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </li>

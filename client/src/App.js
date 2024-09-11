@@ -6,6 +6,8 @@ import Transfer from './Pages/Transfer';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import RequestFunds from './Pages/RequestFunds';
+import Data from './Pages/Data';
+import Airtime from './Pages/Airtime';
 
 import { Navigate } from 'react-router-dom';
 
@@ -28,8 +30,8 @@ function App() {
                     <Route path="/deposit" element={<ProtectedRoute><Deposit /></ProtectedRoute>} />
                     <Route path="/transfer" element={<ProtectedRoute><Transfer /></ProtectedRoute>} />
                     <Route path="/request-funds" element={<ProtectedRoute><RequestFunds /></ProtectedRoute>} />
-
-                    <Route path="/dboard" element={<RequestFunds />} />
+                    <Route path="/airtime" element={<ProtectedRoute><Airtime /></ProtectedRoute>} />
+                    <Route path="/data" element={<ProtectedRoute><Data /></ProtectedRoute>} />
 
                 </Routes>
             </div>

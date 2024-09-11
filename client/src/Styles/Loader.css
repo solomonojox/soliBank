@@ -18,14 +18,10 @@
   border-radius: 10px;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
 }
-.welcome{
-  position: absolute;
-  top: 40px;
-  font-size: 30px;
-}
+
 .foot{
   position: absolute;
-  bottom: 40px;
+  bottom: 100px;
 }
 
 .spinner {
@@ -47,8 +43,6 @@
 }
 
 .loader p {
-  /* font-size: 18px; */
   font-weight: bold;
-  /* color: white; */
   margin-top: 10px;
 }

@@ -76,6 +76,21 @@ const acceptFunds = async (req, res) => {
   }
 };
 
+const rejectRequest = async (req, res) => {
+    try {
+        const request = await Request.findById(req.params.id);
+        if (!request) {
+            return res.status(404).json({ msg: 'Request not found' });
+        }
+        request.status = 'rejected';
+        await request.save();
+        res.status(200).json({ msg: 'Request rejected successfully', request });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server error' });
+    }
+}
+
 const requestList = async (req, res) => {
     try {
         const recipient = await User.findOne({ email: req.params.email });
@@ -108,4 +123,4 @@ const getRequestHistory = async (req, res) => {
     }
 }
 
-module.exports = { requestFunds, acceptFunds, requestList, getRequestHistory };
+module.exports = { requestFunds, acceptFunds, rejectRequest, requestList, getRequestHistory };
