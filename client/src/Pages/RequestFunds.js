@@ -93,7 +93,7 @@ const RequestFunds = () => {
         <h2 className='text-[30px] font-medium mb-4 '>Request Money</h2>
         <form onSubmit={handleRequestMoney}>
           <div>
-            <label>Recipient's Email:</label><br />
+            <label>Recipient's Email<span className='text-[red]'>*</span></label><br />
             <input
                 className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                 type="email"
@@ -104,7 +104,7 @@ const RequestFunds = () => {
             />
           </div>
           <div>
-            <label>Amount:</label><br />
+            <label>Amount<span className='text-[red]'>*</span></label><br />
             <input
                 className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                 type="number"
@@ -115,7 +115,7 @@ const RequestFunds = () => {
             />
           </div>
           <div>
-            <label>Description:</label><br />
+            <label>Description<span className='text-[red]'>*</span></label><br />
             <input
                 className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                 type="text"

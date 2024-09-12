@@ -2,8 +2,6 @@ const User = require('../Models/userDB');
 const Transaction = require('../Models/transactionDB');
 
 // @desc    Deposit funds to a user's account
-// @route   POST /api/transactions/deposit
-// @access  Public
 const depositFunds = async (req, res) => {
     const { accountNumber, amount, description } = req.body;
 
@@ -13,16 +11,23 @@ const depositFunds = async (req, res) => {
             return res.status(400).json({ msg: 'Amount must not be less than ₦100' });
         }
 
+        
         if (description === ''){
             return res.status(400).json({msg: "You must add a description"})
         }
-
+        if (amount > 1000000){
+            return res.status(400).json({ msg: 'Deposit limit is ₦1,000,000. Please try again with a lesser amount.'})
+        }
+        
         // Find the user by account number
         const user = await User.findOne({ accountNumber });
         if (!user) {
             return res.status(404).json({ msg: 'User not found' });
         }
-
+        
+        if ((amount + user.balance) > 10000000 ){
+            return res.status(400).json({ msg: 'Your account balance can not be more than ₦10,000,000' })
+        }
         // Update the user's balance
         user.balance += amount;
         await user.save();
@@ -44,8 +49,6 @@ const depositFunds = async (req, res) => {
 };
 
 // @desc    Transfer funds between users
-// @route   POST /api/transactions/transfer
-// @access  Public
 const transferFunds = async (req, res) => {
     const { fromAccount, toAccount, amount, description } = req.body;
 
@@ -106,7 +109,6 @@ const transferFunds = async (req, res) => {
 
 // @desc    Get transaction history by userId
 // @route   GET /api/transactions/history
-// @access  Private
 const getTransactionHistory = async (req, res) => {
     try {
         const { userId } = req.query;

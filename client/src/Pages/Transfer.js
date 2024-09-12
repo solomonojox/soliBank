@@ -54,7 +54,7 @@ function Transfer() {
         <h2 className='text-[30px] font-medium mb-4 '>Transfer Funds</h2>
         <form onSubmit={handleTransfer}>
           <div>
-              <label>To Account:</label>
+              <label>To Account<span className='text-[red]'>*</span></label>
               <input
                   className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                   type="text"
@@ -63,7 +63,7 @@ function Transfer() {
               />
           </div>
           <div>
-              <label>Amount:</label>
+              <label>Amount<span className='text-[red]'>*</span></label>
               <input
                   className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                   type="number"
@@ -72,12 +72,11 @@ function Transfer() {
               />
           </div>
           <div>
-              <label>Description:</label>
+              <label>Description<span className='text-[red]'>*</span></label>
               <input
                   className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
                   type="text"
                   name="description"
-                //   value={this.state.description}
                   onChange={(e) => setDescription(e.target.value)}
                   required
               />

@@ -24,6 +24,9 @@ const requestFunds = async (req, res) => {
     if (!description) {
         return res.status(400).json({ msg: 'You must add a description' });
     }
+    if (amount > 2000000){
+        return res.status(400).json({ msg: 'Request limit is ₦2,000,000. Please try again with a lesser amount.' })
+    }
 
     const newRequest = new Request({
         requester: requester._id,

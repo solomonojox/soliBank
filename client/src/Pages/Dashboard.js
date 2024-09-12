@@ -8,6 +8,8 @@ function Dashboard() {
   const [user, setUser] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
+  const [showBalance, setShowBalance] = useState(true);
+
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -105,8 +107,8 @@ function Dashboard() {
               {/* Nav */}
               <div className='hidden w-[240px] bg-[purple] md:flex flex-col gap-5 p-4 justify-center '>
                 <div className='flex flex-col justify-center items-center '>
-                  <img src={user.profileImg} alt='profile' className='rounded-full w-[10px] h-[10px] object-cover ' />
-                  <h3 className='text-white font-bold text-[14px] '>{user.name}</h3>
+                  <img src={user.profileImg} alt='profile' className='rounded-full w-[60px] h-[60px] object-cover ' />
+                  <h3 className='text-white font-bold text-[14px] text-center '>{user.name}</h3>
                 </div>
                 <button className='nav_side' onClick={() => navigateDeposit()} >Deposit</button>
                 <button className='nav_side' onClick={() => navigateTransfer()} >Transfer</button>
@@ -132,8 +134,25 @@ function Dashboard() {
                 {/* Balance */}
                 <div className='bg-[purple] rounded-lg px-4 py-2 flex justify-between items-start text-white mt-5 md:hidden '>
                   <div>
-                    <p className='font-bold'>Available Balance</p>
-                    <h2 className='text-[20px] font-bold '>₦ {user.balance}</h2>
+                    <p className='font-bold flex gap-2'>
+                      Available Balance
+                      <span>
+                        <button onClick={() => setShowBalance(!showBalance)} className='mt-1'>
+                          {showBalance ?
+                            <img src='../images/closed-eye.svg' className='w-[20px]' alt='icon' />
+                            :
+                            <img src='../images/opened-eye.svg' className='w-[20px]' alt='icon' />
+                          }
+                        </button>
+                      </span>
+                    </p>
+                    {showBalance ? (
+                      <h2 className='text-[20px] font-bold '>₦ {user.balance}</h2>
+                    ) : (
+                      <h2 className='text-[20px] font-bold '>
+                        {Array.from({ length: user.balance.toString().length }, () => '*').join('')}
+                      </h2>
+                    )}
                   </div>
                   <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-2 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => navigateDeposit()}>Deposit</button>
                 </div>
@@ -161,36 +180,46 @@ function Dashboard() {
                   </div>
                 </div>
 
-                {/* <div>
-                <h2 className='hidden text-[25px] font-bold md:block '>Welcome <span className='text-[purple]'>{user.name}</span></h2>
+                <div className='hidden md:block'>
+                  <h2 className='hidden text-[25px] font-bold md:block '>Welcome <span className='text-[purple]'>{user.name}</span></h2>
                   <div className=''>
                     <p><strong>Email:</strong> {user.email}</p>
                     <p><strong>Name:</strong> {user.name}</p>
                     <p><strong>Account Number:</strong> {user.accountNumber}</p>
                     <p><strong>Account Balance:</strong> ₦ {user.balance}</p>
                   </div>
-                </div> */}
+                </div>
 
                 {/* Transaction History */}
                 <div className='bg-[purple] p md:w-[350px] md:h-[200px] text-white mt-10 md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
                   <h3 className='font-bold text-[18px] p-4 '>Transaction History</h3>
                   {transactions.length > 0 ? (
-                    <ul className='grid gap-2'>
-                      {transactions.map((transaction, index) => (
-                        <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] '>
-                          <div className='flex gap-2'>
-                            <div className='flex items-center justify-center w-[35px] h-[35px] bg-[white] rounded-full text-[] '>
-                              <img src={`./images/${transaction.type}.svg`} alt='img' className='w-[15px] ' />
+                    <div>
+                      <ul className='grid gap-2'>
+                        {transactions.slice(0, 4).map((transaction, index) => (
+                          <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] '>
+                            <div className='flex gap-2'>
+                              <div className='flex items-center justify-center w-[35px] h-[35px] bg-[white] rounded-full '>
+                                <img src={`./images/${transaction.type}.svg`} alt='img' className='w-[15px] ' />
+                              </div>
+                              <div className='w-[200px]'>
+                                <p>{transaction.type} - {transaction.description}</p>
+                                <p>{new Date(transaction.date).toLocaleString()}</p>
+                              </div>
                             </div>
-                            <div className='w-[200px]'>
-                              <p>{transaction.type} - {transaction.description}</p>
-                              <p>{new Date(transaction.date).toLocaleString()}</p>
-                            </div>
-                          </div>
-                          <p><strong>₦ {transaction.amount.toLocaleString()}</strong></p>
-                        </li>
-                      ))}
-                    </ul>
+                            <p><strong>₦ {transaction.amount.toLocaleString()}</strong></p>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className='border-t flex justify-end'>
+                        <button
+                          className=' text-[white] text-[14px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] '
+                          onClick={() => navigate('/transaction-history', { state: location.state })}
+                        >
+                          Show More transactions >>
+                        </button>
+                      </div>
+                    </div>
                   ) : (
                     <p>No transactions found.{message}</p>
                   )}

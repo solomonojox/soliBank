@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Pages/Login';
 import Register from './Pages/Register';
+import Dashboard from './Pages/Dashboard';
+import TransactionHistory from './Pages/Transaction-history';
 import Deposit from './Pages/Deposit';
 import Transfer from './Pages/Transfer';
-import Dashboard from './Pages/Dashboard';
-import Login from './Pages/Login';
 import RequestFunds from './Pages/RequestFunds';
-import Data from './Pages/Data';
 import Airtime from './Pages/Airtime';
+import Data from './Pages/Data';
 
 import { Navigate } from 'react-router-dom';
 
@@ -24,9 +25,10 @@ function App() {
             <div className="App">
                 <Routes>
                     <Route path="/" element={<Navigate to="/login" replace />} />
-                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} /> 
+                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route path="/transaction-history" element={<ProtectedRoute><TransactionHistory /></ProtectedRoute>} />
                     <Route path="/deposit" element={<ProtectedRoute><Deposit /></ProtectedRoute>} />
                     <Route path="/transfer" element={<ProtectedRoute><Transfer /></ProtectedRoute>} />
                     <Route path="/request-funds" element={<ProtectedRoute><RequestFunds /></ProtectedRoute>} />
