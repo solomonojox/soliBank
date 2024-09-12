@@ -1,6 +1,7 @@
 // const express = require('express');
 // const router = express.Router();
 const Request = require('../Models/requestDB');
+const Transaction = require('../Models/transactionDB')
 const User = require('../Models/userDB');
 
 // @route   POST /api/requests
@@ -30,6 +31,7 @@ const requestFunds = async (req, res) => {
         amount,
         description
     });
+    console.log(newRequest)
 
     await newRequest.save();
     res.status(201).json({ msg: 'Request created successfully', request: newRequest });
@@ -41,41 +43,49 @@ const requestFunds = async (req, res) => {
 
 const acceptFunds = async (req, res) => {
   try {
-      const request = await Request.findById(req.params.id).populate('requester').populate('recipient');
+    // Find the request
+    const request = await Request.findById(req.params.id).populate('requester').populate('recipient');
 
-      if (!request) {
-          return res.status(404).json({ msg: 'Request not found' });
-      }
+    if (!request) {
+    return res.status(404).json({ msg: 'Request not found' });
+    }
 
-    //   if (request.status !== 'pending') {
-    //       return res.status(400).json({ msg: 'Request has already been processed' });
-    //   }
-      if(request.status === 'accepted'){
-          return res.status(400).json({ msg: 'Request has already been accepted' });
-      }
-      if (request.status === 'rejected'){
-          return res.status(400).json({ msg: 'Request was already rejected' });
-      }
+    if(request.status === 'accepted'){
+        return res.status(400).json({ msg: 'Request has already been accepted' });
+    }
+    if (request.status === 'rejected'){
+        return res.status(400).json({ msg: 'Request was already rejected' });
+    }
 
-      const { requester, recipient, amount } = request;
+    const { requester, recipient, amount } = request;
 
-      if (recipient.balance < amount) {
-          return res.status(400).json({ msg: 'Insufficient funds' });
-      }
+    if (recipient.balance < amount) {
+        return res.status(400).json({ msg: 'Insufficient funds' });
+    }
 
-      // Debit the recipient
-      recipient.balance -= amount;
-      await recipient.save();
+    // Debit the recipient
+    recipient.balance -= amount;
+    await recipient.save();
 
-      // Credit the requester
-      requester.balance += amount;
-      await requester.save();
+    // Credit the requester
+    requester.balance += amount;
+    await requester.save();
 
-      // Update request status
-      request.status = 'accepted';
-      await request.save();
+    // Create a new transaction
+    const transaction = new Transaction({
+        type: 'accept_funds',
+        requester: requester.accountNumber,
+        recipient: recipient.accountNumber,
+        amount,
+        description: `Accepted funds from ${recipient.email} to ${requester.email}`,
+    });
+    await transaction.save();
 
-      res.status(200).json({ msg: 'Request accepted successfully', request });
+    // Update request status
+    request.status = 'accepted';
+    await request.save();
+
+    res.status(200).json({ msg: 'Request accepted successfully', request, transaction });
   } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: 'Server error' });

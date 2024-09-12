@@ -55,7 +55,9 @@ const RequestFunds = () => {
       if (response.data.msg === 'Request accepted successfully') {
           setRequests(requests.filter(request => request._id !== requestId));
           alert('Request accepted successfully!');
-      }
+          console.log(response)
+        }
+        console.log(response)
     } catch (err) {
       console.error('Error accepting request:', err);
       setMessage('Failed to accept request. Please try again later.');
