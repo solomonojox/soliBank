@@ -117,10 +117,10 @@ function Dashboard() {
 
               <div className='w-[100%] px-1 md:px-[50px] my-5 '>
                 {/* Profile welcome */}
-                <div className='px-4 py-2 flex justify-between items-start md:hidden '>
-                  <div className='flex items-center gap-4 md:hidden'>
+                <div className='py-2 flex justify-between items-start md:hidden '>
+                  <div className='flex items-center gap-1 md:hidden'>
                     <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
-                    <div>
+                    <div className='w-[200px] '>
                       <h3 className='text-[14px] font-bold '>Welcome, {user.name}</h3>
                       <p className='text-[12px] my-[-5px] text-[purple] '>account no. - {user.accountNumber}</p>
                       <p className='text-[12px] my-[-5px] text-[purple] '>{user.email}</p>
@@ -161,7 +161,7 @@ function Dashboard() {
                   </div>
                 </div>
 
-                <div>
+                {/* <div>
                 <h2 className='hidden text-[25px] font-bold md:block '>Welcome <span className='text-[purple]'>{user.name}</span></h2>
                   <div className=''>
                     <p><strong>Email:</strong> {user.email}</p>
@@ -169,11 +169,11 @@ function Dashboard() {
                     <p><strong>Account Number:</strong> {user.accountNumber}</p>
                     <p><strong>Account Balance:</strong> ₦ {user.balance}</p>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Transaction History */}
-                <div className='bg-[purple] p-4 md:w-[350px] md:h-[200px] text-white mt-10 md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
-                  <h3 className='font-bold text-[18px] '>Transaction History</h3>
+                <div className='bg-[purple] p md:w-[350px] md:h-[200px] text-white mt-10 md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
+                  <h3 className='font-bold text-[18px] p-4 '>Transaction History</h3>
                   {transactions.length > 0 ? (
                     <ul className='grid gap-2'>
                       {transactions.map((transaction, index) => (
@@ -182,7 +182,7 @@ function Dashboard() {
                             <div className='flex items-center justify-center w-[35px] h-[35px] bg-[white] rounded-full text-[] '>
                               <img src={`./images/${transaction.type}.svg`} alt='img' className='w-[15px] ' />
                             </div>
-                            <div>
+                            <div className='w-[200px]'>
                               <p>{transaction.type} - {transaction.description}</p>
                               <p>{new Date(transaction.date).toLocaleString()}</p>
                             </div>

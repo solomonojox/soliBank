@@ -73,11 +73,11 @@ const acceptFunds = async (req, res) => {
 
     // Create a new transaction
     const transaction = new Transaction({
-        type: 'accept_funds',
-        requester: requester.accountNumber,
-        recipient: recipient.accountNumber,
+        type: 'request',
+        fromAccount: recipient.accountNumber,
+        toAccount: requester.accountNumber,
         amount,
-        description: `Accepted funds from ${recipient.email} to ${requester.email}`,
+        description: `Funds from ${recipient.name} to ${requester.name}`,
     });
     await transaction.save();
 
@@ -88,7 +88,7 @@ const acceptFunds = async (req, res) => {
     res.status(200).json({ msg: 'Request accepted successfully', request, transaction });
   } catch (err) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server error' });
+      res.status(500).json({ msg: 'Server error', err: err });
   }
 };
 
