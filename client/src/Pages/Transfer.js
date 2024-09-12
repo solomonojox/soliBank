@@ -19,7 +19,7 @@ function Transfer() {
       const fetchReceiversDetails = async () => {
         try {
           const response = await axios({
-            url: `http://localhost:5000/api/account?accountNumber=${toAccount}`,
+            url: `https://solibank.onrender.com/api/account?accountNumber=${toAccount}`,
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
