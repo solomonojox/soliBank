@@ -22,6 +22,6 @@ const router = express.Router();
 // router.get('/profile', authenticateToken, getUserProfile);
 router.get('/profile', getUser.getUser);
 router.get('/info', getUser.getUserProfileByEmail);
-router.get('/infos', getUser.getUserProfileByAccountNumber);
+router.get('/account', getUser.getUserProfileByAccountNumber);
 
 module.exports = router;

@@ -42,7 +42,10 @@ exports.getUserProfileByEmail = async (req, res) => {
 exports.getUserProfileByAccountNumber = async (req, res) => {
     try {
         const accountNumber = req.query.accountNumber;
-        const user = await User.findOne({ accountNumber }); // Find user by email
+        if (accountNumber.length !== 10) {
+            return res.status(400).json({ msg: 'Invalid account number length' });
+        }
+        const user = await User.findOne({ accountNumber }); // Find user by account
         if (user) {
             res.json(user);
         } else {

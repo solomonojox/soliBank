@@ -60,7 +60,7 @@ const transferFunds = async (req, res) => {
 
         // Find both users by account numbers
         const sender = await User.findOne({ accountNumber: fromAccount });
-        const recipient = await User.findOne({ accountNumber: toAccount }); 
+        const recipient = await User.findOne({ accountNumber: toAccount });
 
         if (!sender) {
             return res.status(404).send({ msg: 'Sender not found' });
@@ -100,10 +100,10 @@ const transferFunds = async (req, res) => {
         });
         await transaction.save();
 
-        res.status(200).json({ msg: 'Transfer successful', senderBalance: sender.balance.toLocaleString() });
+        res.status(200).json({ msg: 'Transfer successful', senderBalance: sender.balance.toLocaleString(), recipient });
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server error' }); 
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 

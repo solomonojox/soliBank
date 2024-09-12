@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 function Transfer() {
   const [toAccount, setToAccount] = useState('');
+  const [receiverName, setReceiverName] = useState('')
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [message, setMessage] = useState('');
@@ -13,29 +14,58 @@ function Transfer() {
   const location = useLocation();
 //   console.log(location.state)
 
+  useEffect(() =>{
+    if (toAccount.length >= 9){
+      const fetchReceiversDetails = async () => {
+        try {
+          const response = await axios({
+            url: `http://localhost:5000/api/account?accountNumber=${toAccount}`,
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+  
+          setReceiverName(response.data.name);
+          setIsSuccess(true)
+          console.log(response.data.name);
+        } catch(error){
+          setIsSuccess(false)
+          if (error.response.data.msg === 'User not found'){
+            setReceiverName(error.response.data.msg)
+            setIsSuccess(true)
+            console.log(error.response.data)
+          }
+        }
+      };
+  
+      fetchReceiversDetails();
+    }
+  }, [toAccount]);
+
   const handleTransfer = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.post('https://solibank.onrender.com/api/transactions/transfer', {
-            fromAccount: location.state.accountNumber,
-            toAccount,
-            amount,
-            description,
-        });
+      const response = await axios.post('https://solibank.onrender.com/api/transactions/transfer', {
+        fromAccount: location.state.accountNumber,
+        toAccount,
+        amount,
+        description,
+      });
 
-        setMessage(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
-        alert(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
-        console.log(response.data)
-        setIsSuccess(true);
-        // Clear fields
-        setToAccount('');
-        setAmount('');
-        setDescription('');
+      setMessage(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
+      alert(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
+      console.log(response.data)
+      setIsSuccess(true);
+      // Clear fields
+      setToAccount('');
+      setAmount('');
+      setDescription('');
     } catch (error) {
-        setMessage(error.response.data.msg);
-        setIsSuccess(false);
-        console.log(error.response.data)
+      setMessage(error.response.data.msg);
+      setIsSuccess(false);
+      console.log(error.response.data)
     }
   };
 
@@ -54,22 +84,25 @@ function Transfer() {
         <h2 className='text-[30px] font-medium mb-4 '>Transfer Funds</h2>
         <form onSubmit={handleTransfer}>
           <div>
-              <label>To Account<span className='text-[red]'>*</span></label>
-              <input
-                  className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
-                  type="text"
-                  name="toAccount"
-                  onChange={(e) => setToAccount((e.target.value))}
-              />
+            <label>To Account<span className='text-[red]'>*</span></label>
+            <input
+                className='p-4 bg-[#e8f0fe] w-[100%] rounded border border-[purple] '
+                type="text"
+                name="toAccount"
+                onChange={(e) => setToAccount((e.target.value))}
+            />
+            <div className='mb-4'>
+              <p className={` text-end text-[12px] text-[${receiverName === 'User not found' ? 'red' : 'purple'}] ${!isSuccess ? 'hidden':'block'} `}>{receiverName}</p>
+            </div>
           </div>
           <div>
-              <label>Amount<span className='text-[red]'>*</span></label>
-              <input
-                  className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
-                  type="number"
-                  name="amount"
-                  onChange={(e) => setAmount(parseInt(e.target.value))}
-              />
+            <label>Amount<span className='text-[red]'>*</span></label>
+            <input
+                className='p-4 bg-[#e8f0fe] w-[100%] mb-4 rounded border border-[purple] '
+                type="number"
+                name="amount"
+                onChange={(e) => setAmount(parseInt(e.target.value))}
+            />
           </div>
           <div>
               <label>Description<span className='text-[red]'>*</span></label>

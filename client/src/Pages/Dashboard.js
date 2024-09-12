@@ -8,7 +8,7 @@ function Dashboard() {
   const [user, setUser] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
-  const [showBalance, setShowBalance] = useState(true);
+  const [showBalance, setShowBalance] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -211,6 +211,7 @@ function Dashboard() {
                           </li>
                         ))}
                       </ul>
+                      {transactions.length > 4 ? (
                       <div className='border-t flex justify-end'>
                         <button
                           className=' text-[white] text-[14px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] '
@@ -219,6 +220,9 @@ function Dashboard() {
                           Show More transactions >>
                         </button>
                       </div>
+                      ):(
+                        <div></div>
+                      )}
                     </div>
                   ) : (
                     <p>No transactions found.{message}</p>
