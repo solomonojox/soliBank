@@ -26,9 +26,9 @@ function Transfer() {
             }
           });
   
-          setReceiverName(response.data.name);
+          setReceiverName(response.data);
           setIsSuccess(true)
-          console.log(response.data.name);
+          console.log(response.data);
         } catch(error){
           setIsSuccess(false)
           if (error.response.data.msg === 'User not found'){

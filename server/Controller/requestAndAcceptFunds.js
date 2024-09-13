@@ -88,7 +88,7 @@ const acceptFunds = async (req, res) => {
     request.status = 'accepted';
     await request.save();
 
-    res.status(200).json({ msg: 'Request accepted successfully', request, transaction });
+    res.status(200).json({ msg: 'Request accepted successfully', transaction });
   } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: 'Server error', err: err });
@@ -121,7 +121,7 @@ const requestList = async (req, res) => {
         }
 
         const requests = await Request.find({ recipient: recipient._id })
-            .populate('requester')
+            .populate('requester', 'name')
             .sort({ createdAt: -1 });
         res.status(200).json({ requests });
     } catch (err) {
@@ -133,7 +133,7 @@ const requestList = async (req, res) => {
 const getRequestHistory = async (req, res) => {
     try {
         try {
-            const requests = await Request.find().populate('requester').populate('recipient');
+            const requests = await Request.find().populate('requester', 'name').populate('recipient');
             res.status(200).json({ requests });
           } catch (err) {
             console.error(err.message);

@@ -18,6 +18,7 @@ const RequestFunds = () => {
     axios.get(`https://solibank.onrender.com/api/transactions/recipient/${location.state.email}`)
       .then((res) => {
           setRequests(res.data.requests);
+          // console.log(res.data.requests);
       })
       .catch((err) => {
           console.error('Error fetching requests:', err);
@@ -36,6 +37,7 @@ const RequestFunds = () => {
         description
       });
       setMessage(response.data.msg);
+      // console.log(response.data);
       alert(response.data.msg);
       setIsSuccess(true);
       // Clear the form fields
@@ -43,7 +45,7 @@ const RequestFunds = () => {
       setAmount('');
       setDescription('');
     } catch (err) {
-      console.error('Error requesting money:', err.response.data);
+      // console.error('Error requesting money:', err.response.data);
       setMessage(err.response.data.msg);
       setIsSuccess(false);
     }
@@ -55,11 +57,11 @@ const RequestFunds = () => {
       if (response.data.msg === 'Request accepted successfully') {
           setRequests(requests.filter(request => request._id !== requestId));
           alert('Request accepted successfully!');
-          console.log(response)
+          // console.log(response)
         }
         console.log(response)
     } catch (err) {
-      console.error('Error accepting request:', err);
+      // console.error('Error accepting request:', err);
       setMessage('Failed to accept request. Please try again later.');
     }
   };
@@ -69,10 +71,11 @@ const RequestFunds = () => {
       const response = await axios.post(`https://solibank.onrender.com/api/transactions/reject/${requestId}`);
       if (response.data.msg === 'Request rejected successfully') {
           setRequests(requests.filter(request => request._id !== requestId));
+          // console.log(response)
           alert('Request rejected successfully!');
       }
     } catch (err) {
-      console.error('Error rejecting request:', err);
+      // console.error('Error rejecting request:', err);
       setMessage('Failed to reject request. Please try again later.');
     }
   };

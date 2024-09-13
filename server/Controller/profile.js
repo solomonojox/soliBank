@@ -47,7 +47,7 @@ exports.getUserProfileByAccountNumber = async (req, res) => {
         }
         const user = await User.findOne({ accountNumber }); // Find user by account
         if (user) {
-            res.json(user);
+            res.json(user.name);
         } else {
             res.status(404).json({ msg: 'User not found' });
         }

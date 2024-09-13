@@ -20,6 +20,7 @@ function TransactionHistory() {
           }
         });
         setTransactions(response.data);
+        console.log(response.data);
       } catch (error) {
         setMessage(error.response.data.msg);
       }
