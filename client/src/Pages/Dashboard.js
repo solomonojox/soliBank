@@ -13,7 +13,7 @@ function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  // console.log(user)
+  // console.log(location.state.token)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -61,6 +61,12 @@ function Dashboard() {
     };
     fetchTransactions();
   }, [location.state._id]);
+
+  useEffect(() => {
+    if (!location.state.token) {
+      navigate('/login');
+    }
+  }) 
 
   const navigateDeposit = () => {
     navigate(`/deposit`, { state: location.state });
