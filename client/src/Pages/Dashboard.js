@@ -4,6 +4,23 @@ import axios from 'axios'
 import '../Styles/nav.css';
 import '../Styles/Loader.css';
 
+// React Icons
+// import { CgProfile } from 'react-icons/cg';
+// import { CgArrowUpO } from 'react-icons/cg';
+import { CgLogOut } from 'react-icons/cg';
+
+import { MdOutlineAccountBalanceWallet, MdOutlineLiveTv } from 'react-icons/md';
+import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
+
+import { PiPhoneTransferFill } from "react-icons/pi";
+import { TbTransferIn, TbMobiledata } from "react-icons/tb";
+import { IoFootballOutline } from "react-icons/io5";
+import { LuUtilityPole } from "react-icons/lu";
+import { CiCreditCard1 } from "react-icons/ci";
+import { GiTakeMyMoney } from "react-icons/gi";
+
+
+
 function Dashboard() {
   const [user, setUser] = useState({});
   const [transactions, setTransactions] = useState([]);
@@ -140,7 +157,7 @@ function Dashboard() {
         ) : (
 
           <div className='flex items-center justify-center md:h-[100vh] w-[100%] bg-[#fff5ff] '>
-            <div className='flex bg-[white] shadow-2xl w-[100%] md:w-[800px] md:h-[450px] p-4 '>
+            <div className='flex bg-[#fff5ff] shadow-2xl w-[100%] md:w-[800px] md:h-[450px] p-4 '>
 
               {/* Nav */}
               <div className='hidden w-[240px] bg-[purple] md:flex flex-col gap-5 p-4 justify-center '>
@@ -157,7 +174,7 @@ function Dashboard() {
 
               <div className='w-[100%] px-1 md:px-[50px] my-5 '>
                 {/* Profile welcome */}
-                <div className='py-2 flex justify-between items-start md:hidden '>
+                <div className='py-4 flex justify-between items-start md:hidden bg-white ' style={{ position: 'sticky', top: 0 }}>
                   <div className='flex items-center gap-1 md:hidden'>
                     <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
                     <div className='w-[200px] '>
@@ -166,7 +183,10 @@ function Dashboard() {
                       <p className='text-[12px] my-[-5px] text-[purple] '>{user.email}</p>
                     </div>
                   </div>
-                  <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => handleLogout(false)}>Logout</button>
+                  <div className='bg-[#fff5ff] text-[purple] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => handleLogout(false)}>
+                    <CgLogOut className='text-[25px] ' />
+                    <p className='text-[8px]'>Logout</p>
+                  </div>
                 </div>
 
                 {/* Balance */}
@@ -192,29 +212,62 @@ function Dashboard() {
                       </h2>
                     )}
                   </div>
-                  <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-2 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => navigateDeposit()}>Deposit</button>
+                  <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-3 py-2 rounded-2xl hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => navigateDeposit()}>Deposit</button>
                 </div>
 
-                {/* Tranfer, request, airtime and data */}
-                <div className='bg-[purple] mt-10 py-4 px-5 grid gap-2 rounded-lg mb-5 md:hidden'>
-                  <p className='text-white font-bold'>Transactions</p>
-                  <div className='bg-[purple] w-[100%] text-white md:hidden flex justify-between '>
-                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateTransfer()}>
-                      <img src='../images/transfer-icon.png' className='rounded-full bg-white w-[40px] ' alt='icon' />
+                {/* Tranfer, request */}
+                <div className='bg-[white] mt-5 py-4 px-5 grid gap-2 rounded-lg mb-5 md:hidden'>
+                  <p className='font-bold'>Transactions</p>
+                  <div className=' w-[100%] md:hidden flex gap-10 '>
+                    <div className='flex flex-col gap-1 items-center' onClick={() => navigateTransfer()}>
+                      <TbTransferIn className='text-[35px] text-[purple] '/>
                       <p className='text-[12px]'>Transfer</p>
                     </div>
-                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateRequest()}>
-                      <img src='../images/request.svg' className='rounded-full bg-white p-2 w-[40px] ' alt='icon' />
+                    <div className='flex flex-col items-center' onClick={() => navigateRequest()}>
+                      <VscGitPullRequestGoToChanges className='text-[35px] text-[#4f7fe6] '/>
                       <p className='text-[12px]'>Request</p>
                     </div>
-                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateAirtime()}>
-                      <img src='../images/airtime.svg' className='rounded-full bg-white p-2 w-[40px] h-[40px] ' alt='icon' />
+                    <div className='flex flex-col items-center' onClick={() => navigateAirtime()}>
+                      <MdOutlineAccountBalanceWallet className='text-[35px] text-[purple] '/>
+                      <p className='text-[12px]'>Safe</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Services */}
+                <div className='bg-[white] mt-5 py-4 grid gap-2 rounded-lg mb-5 md:hidden'>
+                  <p className='font-bold ml-5'>Services</p>
+                  <div className='md:hidden grid grid-cols-3 gap-5 '>
+
+                    <div className='flex gap-1 flex-col items-center' onClick={() => navigateAirtime()}>
+                      <PiPhoneTransferFill className='text-[#4f7fe6] text-[35px]'/>
                       <p className='text-[12px]'>Airtime</p>
                     </div>
-                    <div className='flex flex-col gap-2 items-center' onClick={() => navigateData()}>
-                      <img src='../images/data.svg' className='rounded-full bg-white p-2 w-[40px] h-[40px] ' alt='icon' />
+                    <div className='flex flex-col items-center' onClick={() => navigateData()}>
+                      <TbMobiledata className='text-[35px] text-[#12b37d] ' />
                       <p className='text-[12px]'>Data</p>
                     </div>
+                    <div className='flex flex-col items-center' onClick={() => navigateData()}>
+                      <IoFootballOutline className='text-[35px] text-[#12b37d] '/>
+                      <p className='text-[12px]'>Sport Betting</p>
+                    </div>
+                    <div className='flex flex-col items-center' onClick={() => navigateData()}>
+                      <LuUtilityPole className='text-[35px] text-[#12b37d] '/>
+                      <p className='text-[12px]'>Utilities</p>
+                    </div>
+                    <div className='flex flex-col items-center' onClick={() => navigateData()}>
+                      <MdOutlineLiveTv className='text-[35px] text-[#4f7fe6] ' />
+                      <p className='text-[12px]'>Tv/Cables</p>
+                    </div>
+                    <div className='flex flex-col items-center' onClick={() => navigateData()}>
+                      <CiCreditCard1 className='text-[35px] text-[#4f7fe6] ' />
+                      <p className='text-[12px]'>Debit card</p>
+                    </div>
+                    <div className='flex flex-col items-center' onClick={() => navigateData()}>
+                      <GiTakeMyMoney className='text-[35px] text-[#4f7fe6] ' />
+                      <p className='text-[12px]'>Refer & earn</p>
+                    </div>
+
                   </div>
                 </div>
 

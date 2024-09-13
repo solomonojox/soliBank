@@ -120,7 +120,7 @@ const Register = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <div className='password-display' onClick={() => setShowPassword(!showPassword)}>
+                        <div className='password-display opacity-65' onClick={() => setShowPassword(!showPassword)}>
                             {showPassword ?
                                 <img src='../images/closed-eye-black.svg' className='w-[20px]' alt='icon' />
                                 :
