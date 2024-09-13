@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import '../Styles/password.css'
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -11,6 +12,7 @@ const Register = () => {
     const [accountNumber, setAccountNumber] = useState('');
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
 
     const handlePhotoChange = (e) => {
@@ -110,14 +112,21 @@ const Register = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div>
+                    <div className='password'>
                         <label>Password:</label><br/>
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        <div className='password-display' onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ?
+                                <img src='../images/closed-eye-black.svg' className='w-[20px]' alt='icon' />
+                                :
+                                <img src='../images/opened-eye-black.svg' className='w-[20px]' alt='icon' />
+                            }
+                            </div>
                     </div>
                     <div>
                         <label>Photo:</label><br/>

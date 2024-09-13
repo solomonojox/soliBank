@@ -86,11 +86,12 @@ function Dashboard() {
   }
 
   // This function will log out the user
-  const handleLogout = () => {
-    // Clear any stored tokens or session data
+  const handleLogout = (showAlert = true) => {
     localStorage.removeItem('token');
-    alert('You have been logged out due to inactivity');
-    navigate('/login', {replace: true}); // Redirect to login page
+    if(showAlert){
+      alert('You have been logged out due to inactivity');
+    }
+    navigate('/login', {replace: true});
   };
 
   // Reset the inactivity timer
@@ -165,7 +166,7 @@ function Dashboard() {
                       <p className='text-[12px] my-[-5px] text-[purple] '>{user.email}</p>
                     </div>
                   </div>
-                  <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => handleLogout()}>Logout</button>
+                  <button className='bg-[#fff5ff] text-[purple] text-[12px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => handleLogout(false)}>Logout</button>
                 </div>
 
                 {/* Balance */}

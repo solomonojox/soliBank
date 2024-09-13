@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import '../Styles/password.css'
 
 const Login = () => {
-  const [identifier, setIdentifier] = useState(''); // changed from email to identifier
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -47,15 +49,22 @@ const Login = () => {
               required
             />
           </div>
-          <div>
+          <div className='password'>
             <label>Password:</label>
             <input
               className='w-[250px] p-2 border '
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <div className='password-display' onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ?
+                <img src='../images/closed-eye-black.svg' className='w-[20px]' alt='icon' />
+                :
+                <img src='../images/opened-eye-black.svg' className='w-[20px]' alt='icon' />
+              }
+            </div>
           </div>
           <button type="submit" className='bg-[purple] p-2 rounded text-white text-[18px] '>Login</button>
         </form>
