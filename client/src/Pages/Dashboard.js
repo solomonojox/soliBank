@@ -33,10 +33,11 @@ function Dashboard() {
   let timeoutId;
   // console.log(location.state.token)
 
+  // Loading
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000); // 3 seconds
+    }, 1000); // 1 seconds
 
     return () => {
       clearTimeout(timer);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import '../Styles/isLoading.css'
 
 const RequestFunds = () => {
   const [recipientEmail, setRecipientEmail] = useState('');
@@ -9,12 +10,14 @@ const RequestFunds = () => {
   const [requests, setRequests] = useState([]);
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     // Fetch incoming requests
+    setIsLoading(true);
     axios.get(`https://solibank.onrender.com/api/transactions/recipient/${location.state.email}`)
       .then((res) => {
           setRequests(res.data.requests);
@@ -23,11 +26,16 @@ const RequestFunds = () => {
       .catch((err) => {
           console.error('Error fetching requests:', err);
           // setError('Failed to load requests. Please try again later.');
+      })
+      .finally(() => {
+          setIsLoading(false);
       });
   }, [location.state.email]);
 
   const handleRequestMoney = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     try {
       const response = await axios.post('https://solibank.onrender.com/api/transactions/request', {
@@ -40,18 +48,23 @@ const RequestFunds = () => {
       // console.log(response.data);
       alert(response.data.msg);
       setIsSuccess(true);
-      // Clear the form fields
-      setRecipientEmail('');
-      setAmount('');
-      setDescription('');
+      setIsLoading(false)
     } catch (err) {
       // console.error('Error requesting money:', err.response.data);
       setMessage(err.response.data.msg);
+      setIsLoading(false)
       setIsSuccess(false);
     }
+
+    // Clear the form fields
+    setRecipientEmail('');
+    setAmount('');
+    setDescription('');
+
   };
 
   const handleAcceptRequest = async (requestId) => {
+    setIsLoading(true);
     try {
       const response = await axios.post(`https://solibank.onrender.com/api/transactions/accept/${requestId}`);
       if (response.data.msg === 'Request accepted successfully') {
@@ -59,14 +72,17 @@ const RequestFunds = () => {
           alert('Request accepted successfully!');
           // console.log(response)
         }
-        console.log(response)
+        setIsLoading(false)
+        // console.log(response)
     } catch (err) {
       // console.error('Error accepting request:', err);
-      setMessage('Failed to accept request. Please try again later.');
+      alert('Failed to accept request. Please try again later.'); 
+      setIsLoading(false)
     }
   };
 
   const handleRejectRequest = async (requestId) => {
+    setIsLoading(true);
     try {
       const response = await axios.post(`https://solibank.onrender.com/api/transactions/reject/${requestId}`);
       if (response.data.msg === 'Request rejected successfully') {
@@ -74,9 +90,11 @@ const RequestFunds = () => {
           // console.log(response)
           alert('Request rejected successfully!');
       }
+      setIsLoading(false)
     } catch (err) {
       // console.error('Error rejecting request:', err);
-      setMessage('Failed to reject request. Please try again later.');
+      alert('Failed to reject request. Please try again later.');
+      setIsLoading(false)
     }
   };
 
@@ -86,6 +104,12 @@ const RequestFunds = () => {
 
   return (
     <div className='items-center justify-center bg-[#fff5ff] '>
+      {isLoading && (
+        <div className='overlay'>
+          <div className='spinner'></div>
+        </div>
+      )}
+
       <div className=' bg-[white] p-8 '>
         <div className='border-b py-4 mb-10 '>
           <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>

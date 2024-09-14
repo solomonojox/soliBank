@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/password.css'
+import '../Styles/isLoading.css'
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -13,6 +14,7 @@ const Register = () => {
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
     const handlePhotoChange = (e) => {
@@ -21,6 +23,8 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+
+        setIsLoading(true);
 
         // Upload photo to Cloudinary
         let photoUrl = '';
@@ -41,6 +45,7 @@ const Register = () => {
                 setIsSuccess(false);
                 return;
             }
+            
         }
         
         // Prepare form data to send to your backend
@@ -81,6 +86,11 @@ const Register = () => {
 
     return (
         <div className='bg-[#d0bbd0] w-[100%] flex flex-col items-center justify-center p-4 '>
+            {isLoading && (
+                <div className='overlay'>
+                <div className='spinner'></div>
+                </div>
+            )}
             <div className='bg-[white] p-5 md:w-[400px] '>
 
                 <h2 className='text-[30px] font-medium mb-4 '>Register</h2>

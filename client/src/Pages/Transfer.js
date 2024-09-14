@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import '../Styles/isLoading.css'
 
 function Transfer() {
   const [toAccount, setToAccount] = useState('');
@@ -9,6 +10,7 @@ function Transfer() {
   const [description, setDescription] = useState('');
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +47,7 @@ function Transfer() {
 
   const handleTransfer = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await axios.post('https://solibank.onrender.com/api/transactions/transfer', {
@@ -58,15 +61,19 @@ function Transfer() {
       alert(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
       console.log(response.data)
       setIsSuccess(true);
-      // Clear fields
-      setToAccount('');
-      setAmount('');
-      setDescription('');
+      setIsLoading(false);
+      
     } catch (error) {
       setMessage(error.response.data.msg);
+      setIsLoading(false);
       setIsSuccess(false);
       console.log(error.response.data)
     }
+
+    // Clear the form fields
+    setToAccount('');
+    setAmount('');
+    setDescription('');
   };
 
   const navigateDashboard = () => {
@@ -75,6 +82,11 @@ function Transfer() {
 
   return (
     <div className='md:flex items-center justify-center h-[100vh] md:bg-[#fff5ff] '>
+      {isLoading && (
+        <div className='overlay'>
+          <div className='spinner'></div>
+        </div>
+      )}
       <div className='md:w-[450px] bg-white p-8 '>
         <div className='border-b py-4 mb-10 '>
         <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>

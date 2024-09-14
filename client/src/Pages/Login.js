@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../Styles/password.css'
+import '../Styles/isLoading.css'
 
 const Login = () => {
   const [identifier, setIdentifier] = useState('');
@@ -9,10 +10,13 @@ const Login = () => {
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     axios.post('https://solibank.onrender.com/api/users/login', {
       identifier, // changed from email to identifier
@@ -31,11 +35,18 @@ const Login = () => {
       setMessage(error.response.data.message);
       setIsSuccess(false);
       console.log(error.response.data);
-    });
+    })
+    .finally(() => setIsLoading(false));
   };
 
   return (
     <div className='flex items-center justify-center h-[100vh] w-[100%] bg-[#d0bbd0] '>
+      {isLoading && (
+        <div className='overlay'>
+          <div className='spinner'></div>
+        </div>
+      )}
+
       <div className='flex flex-col gap-2 justify-center h-[350px] w-[300px] p-6 bg-white '>
         <h2 className='text-[30px] font-medium '>Login</h2>
         <form onSubmit={handleLogin} className='grid gap-2'>

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../Styles/isLoading.css'
 
 function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTransactions = async () => {
+      setIsLoading(true);
       try {
         const response = await axios({
           url: `https://solibank.onrender.com/api/transactions/history?userId=${location.state._id}`,
@@ -20,9 +23,11 @@ function TransactionHistory() {
           }
         });
         setTransactions(response.data);
-        console.log(response.data);
+        setIsLoading(false);
+        // console.log(response.data);
       } catch (error) {
         setMessage(error.response.data.msg);
+        setIsLoading(false);
       }
     };
     fetchTransactions();
@@ -33,6 +38,12 @@ function TransactionHistory() {
   };
   return (
     <div className='p-4'>
+      {isLoading && (
+        <div className='overlay'>
+          <div className='spinner'></div>
+        </div>
+      )}
+      
       <div className='border-b py-4 mb-10 '>
         <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>
           <img src='../images/back-arrow.svg' alt='icon' className='w-[20px] ' />
