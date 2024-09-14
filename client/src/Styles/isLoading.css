@@ -14,7 +14,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Ensures the overlay is above everything */
+  z-index: 1000;
+  color: #fae8fa;
 }
 
 /* Optional spinner for a better user experience */

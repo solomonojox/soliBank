@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,7 +12,8 @@ function Deposit() {
 
   const location = useLocation()
   const navigate = useNavigate()
-  console.log(location.state)
+  let timeoutId;
+  // console.log(location.state)
 
   const navigateDashboard = () => {
     navigate(`/dashboard`, { state: location.state });
@@ -41,6 +42,44 @@ function Deposit() {
       console.log(error.response.data)
     }
   }
+
+  // This function will log out the user
+  const handleLogout = (showAlert = true) => {
+    localStorage.removeItem('token');
+    if(showAlert){
+      alert('You have been logged out due to inactivity');
+    }
+    navigate('/login', {replace: true});
+  };
+
+  // Reset the inactivity timer
+  const resetTimer = () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(handleLogout, 180000); // Set inactivity timer for 3 minute
+  };
+
+  // Set up event listeners to detect user activity
+  const setupInactivityTimer = () => {
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+    window.addEventListener('click', resetTimer);
+    window.addEventListener('scroll', resetTimer);
+  };
+
+  useEffect(() => {
+    // Initialize the inactivity timer when component mounts
+    resetTimer();
+    setupInactivityTimer();
+
+    // Cleanup event listeners and timer when component unmounts
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('mousemove', resetTimer);
+      window.removeEventListener('keydown', resetTimer);
+      window.removeEventListener('click', resetTimer);
+      window.removeEventListener('scroll', resetTimer);
+    };
+  });
 
   return (
     <div className='md:flex items-center justify-center h-[100vh] md:bg-[#fff5ff] '>

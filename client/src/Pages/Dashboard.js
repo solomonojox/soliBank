@@ -32,6 +32,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   let timeoutId;
   // console.log(location.state.token)
+  // console.log(transactions)
 
   // Loading
   useEffect(() => {
@@ -173,7 +174,7 @@ function Dashboard() {
               </div>
               {/* \end */}
 
-              <div className='w-[100%] px-1 md:px-[50px] my-5 '>
+              <div className='w-[100%] px-1 md:px-[50px] '>
                 {/* Profile welcome */}
                 <div className='py-4 flex justify-between items-start md:hidden bg-white ' style={{ position: 'sticky', top: 0 }}>
                   <div className='flex items-center gap-1 md:hidden'>
@@ -191,7 +192,7 @@ function Dashboard() {
                 </div>
 
                 {/* Balance */}
-                <div className='bg-[purple] rounded-lg px-4 py-2 flex justify-between items-start text-white mt-5 md:hidden '>
+                <div className='bg-[purple] rounded-lg p-4 flex justify-between items-start text-white mt-5 md:hidden '>
                   <div>
                     <p className='font-bold flex gap-2'>
                       Available Balance
@@ -221,15 +222,15 @@ function Dashboard() {
                   <p className='font-bold'>Transactions</p>
                   <div className=' w-[100%] md:hidden flex gap-10 '>
                     <div className='flex flex-col gap-1 items-center' onClick={() => navigateTransfer()}>
-                      <TbTransferIn className='text-[35px] text-[purple] '/>
+                      <TbTransferIn className='text-[40px] text-[purple] rounded-full bg-[#fae8fa] p-2 '/>
                       <p className='text-[12px]'>Transfer</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateRequest()}>
-                      <VscGitPullRequestGoToChanges className='text-[35px] text-[#4f7fe6] '/>
+                      <VscGitPullRequestGoToChanges className='text-[40px] rounded-full bg-[#fae8fa] p-2 '/>
                       <p className='text-[12px]'>Request</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateAirtime()}>
-                      <MdOutlineAccountBalanceWallet className='text-[35px] text-[purple] '/>
+                      <MdOutlineAccountBalanceWallet className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] '/>
                       <p className='text-[12px]'>Safe</p>
                     </div>
                   </div>
@@ -241,37 +242,38 @@ function Dashboard() {
                   <div className='md:hidden grid grid-cols-3 gap-5 '>
 
                     <div className='flex gap-1 flex-col items-center' onClick={() => navigateAirtime()}>
-                      <PiPhoneTransferFill className='text-[#4f7fe6] text-[35px]'/>
+                      <PiPhoneTransferFill className='text-[purple] text-[40px] rounded-full bg-[#fae8fa] p-2 '/>
                       <p className='text-[12px]'>Airtime</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateData()}>
-                      <TbMobiledata className='text-[35px] text-[#12b37d] ' />
+                      <TbMobiledata className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] ' />
                       <p className='text-[12px]'>Data</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateData()}>
-                      <IoFootballOutline className='text-[35px] text-[#12b37d] '/>
+                      <IoFootballOutline className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] '/>
                       <p className='text-[12px]'>Sport Betting</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateData()}>
-                      <LuUtilityPole className='text-[35px] text-[#12b37d] '/>
+                      <LuUtilityPole className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] '/>
                       <p className='text-[12px]'>Utilities</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateData()}>
-                      <MdOutlineLiveTv className='text-[35px] text-[#4f7fe6] ' />
+                      <MdOutlineLiveTv className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] ' />
                       <p className='text-[12px]'>Tv/Cables</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateData()}>
-                      <CiCreditCard1 className='text-[35px] text-[#4f7fe6] ' />
+                      <CiCreditCard1 className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] ' />
                       <p className='text-[12px]'>Debit card</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateData()}>
-                      <GiTakeMyMoney className='text-[35px] text-[#4f7fe6] ' />
+                      <GiTakeMyMoney className='text-[40px] rounded-full bg-[#fae8fa] p-2 text-[purple] ' />
                       <p className='text-[12px]'>Refer & earn</p>
                     </div>
 
                   </div>
                 </div>
 
+                {/* Account Details MD */}
                 <div className='hidden md:block'>
                   <h2 className='hidden text-[25px] font-bold md:block '>Welcome <span className='text-[purple]'>{user.name}</span></h2>
                   <div className=''>
@@ -283,12 +285,12 @@ function Dashboard() {
                 </div>
 
                 {/* Transaction History */}
-                <div className='bg-[purple] p md:w-[350px] md:h-[200px] text-white mt-10 md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
+                <div className='bg-[purple] p md:w-[350px] md:h-[200px] text-white md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
                   <h3 className='font-bold text-[18px] p-4 '>Transaction History</h3>
                   {transactions.length > 0 ? (
                     <div>
                       <ul className='grid gap-2'>
-                        {transactions.slice(0, 4).map((transaction, index) => (
+                        {transactions.slice(0, 2).map((transaction, index) => (
                           <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] '>
                             <div className='flex gap-2'>
                               <div className='flex items-center justify-center w-[35px] h-[35px] bg-[white] rounded-full '>
