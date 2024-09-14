@@ -255,7 +255,7 @@ function Dashboard() {
                       <p className='text-[12px]'>Transfer</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateRequest()}>
-                      <VscGitPullRequestGoToChanges className='text-[40px] rounded-full bg-[#fae8fa] p-2 '/>
+                      <VscGitPullRequestGoToChanges className='text-[40px] text-[purple] rounded-full bg-[#fae8fa] p-2 '/>
                       <p className='text-[12px]'>Request</p>
                     </div>
                     <div className='flex flex-col items-center' onClick={() => navigateAirtime()}>
