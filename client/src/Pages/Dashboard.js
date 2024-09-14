@@ -8,6 +8,7 @@ import '../Styles/Loader.css';
 // import { CgProfile } from 'react-icons/cg';
 // import { CgArrowUpO } from 'react-icons/cg';
 import { CgLogOut } from 'react-icons/cg';
+import { IoNotifications } from "react-icons/io5";
 
 import { MdOutlineAccountBalanceWallet, MdOutlineLiveTv } from 'react-icons/md';
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
@@ -19,6 +20,9 @@ import { LuUtilityPole } from "react-icons/lu";
 import { CiCreditCard1 } from "react-icons/ci";
 import { GiTakeMyMoney } from "react-icons/gi";
 
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+
+
 
 
 function Dashboard() {
@@ -26,6 +30,7 @@ function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [message, setMessage] = useState('');
   const [showBalance, setShowBalance] = useState(false);
+  const [showNotification, setShowNotification] = useState(false)
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -142,6 +147,14 @@ function Dashboard() {
     };
   });
 
+  const handleShowNotification = () => {
+    if (showNotification) {
+      setShowNotification(false)
+    } else{
+      setShowNotification(true)
+    }
+  }
+
     return (
       <div>
         {loading ? (
@@ -176,20 +189,36 @@ function Dashboard() {
 
               <div className='w-[100%] px-1 md:px-[50px] '>
                 {/* Profile welcome */}
-                <div className='py-4 flex justify-between items-start md:hidden bg-white ' style={{ position: 'sticky', top: 0 }}>
+                <div className='py-4 px-1 flex justify-between items-start md:hidden bg-white ' style={{ position: 'sticky', top: 0 }}>
                   <div className='flex items-center gap-1 md:hidden'>
                     <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
                     <div className='w-[200px] '>
-                      <h3 className='text-[14px] font-bold '>Welcome, {user.name}</h3>
-                      <p className='text-[12px] my-[-5px] text-[purple] '>account no. - {user.accountNumber}</p>
-                      <p className='text-[12px] my-[-5px] text-[purple] '>{user.email}</p>
+                      <h3 className='text-[14px] font-bold '>{user.name}</h3>
+                      <p className='text-[12px] my-[-3px] text-[purple] '>account no - {user.accountNumber}</p>
+                      <p className='text-[12px] my-[-3px] text-[purple] '>{user.email}</p>
                     </div>
                   </div>
-                  <div className='bg-[#fff5ff] text-[purple] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] ' onClick={() => handleLogout(false)}>
-                    <CgLogOut className='text-[25px] ' />
-                    <p className='text-[8px]'>Logout</p>
+                  <div className='flex items-center gap-3'>
+                    <div className='text-[purple] font-bold rounded-lg ' onClick={() => handleLogout(false)}>
+                      <CgLogOut className='text-[20px] ' />
+                      <p className='text-[6px]'>Logout</p>
+                    </div>
+                    <div className='relative'>
+                      <IoNotifications className='text-[purple] text-[25px] ' onClick={() => handleShowNotification()}/>
+                      {/* Notification box */}
+                      <div className={`bg-[#f1f1f1] w-[180px] rounded-xl absolute left-[-155px] top-[40px] p-2 ${showNotification ? 'block' : 'hidden'} `}> 
+                        <ul>
+                          <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
+                          <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
+                          <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
+                          <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
+                          <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
 
                 {/* Balance */}
                 <div className='bg-[purple] rounded-lg p-4 flex justify-between items-start text-white mt-5 md:hidden '>
@@ -308,10 +337,10 @@ function Dashboard() {
                       {transactions.length > 4 ? (
                       <div className='border-t flex justify-end'>
                         <button
-                          className=' text-[white] text-[14px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] '
+                          className=' flex items-center text-[white] text-[14px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] '
                           onClick={() => navigate('/transaction-history', { state: location.state })}
                         >
-                          Show More transactions >>
+                          More transactions <MdKeyboardDoubleArrowRight/> 
                         </button>
                       </div>
                       ):(
