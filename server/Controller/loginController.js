@@ -16,7 +16,7 @@ exports.loginUser = async (req, res) => {
             // If not found, try to find user by username
             user = await User.findOne({ username: identifier });
             if (!user) {
-                return res.status(400).send({ message: 'Invalid identifier, please check again' });
+                return res.status(400).send({ message: 'Invalid email or username, please check again' });
             }
         }
     } catch (error) {
