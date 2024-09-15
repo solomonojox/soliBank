@@ -21,6 +21,7 @@ import { CiCreditCard1 } from "react-icons/ci";
 import { GiTakeMyMoney } from "react-icons/gi";
 
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import MenuBar from '../Components/MenuBar';
 
 
 
@@ -172,7 +173,7 @@ function Dashboard() {
         ) : (
 
           <div className='flex items-center justify-center md:h-[100vh] w-[100%] bg-[#fff5ff] '>
-            <div className='flex bg-[#fff5ff] shadow-2xl w-[100%] md:w-[800px] md:h-[450px] p-4 '>
+            <div className='flex shadow-2xl w-[100%] md:w-[800px] md:h-[450px] px-4 relative '>
 
               {/* Nav */}
               <div className='hidden w-[240px] bg-[purple] md:flex flex-col gap-5 p-4 justify-center '>
@@ -218,6 +219,9 @@ function Dashboard() {
                     </div>
                   </div>
                 </div>
+
+                {/* Menu buttons */}
+                <MenuBar/>
 
 
                 {/* Balance */}
