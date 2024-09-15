@@ -21,6 +21,7 @@ import { CiCreditCard1 } from "react-icons/ci";
 import { GiTakeMyMoney } from "react-icons/gi";
 
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { IoChatbubbleEllipses } from "react-icons/io5";
 import MenuBar from '../Components/MenuBar';
 
 
@@ -222,6 +223,9 @@ function Dashboard() {
 
                 {/* Menu buttons */}
                 <MenuBar/>
+                <div className='fixed bottom-20 right-2 text-[50px] text-[green] rounded-full bg-[#fff5ff] p-3 '>
+                  <IoChatbubbleEllipses className='text-[30px] text-[green] '/>
+                </div>
 
 
                 {/* Balance */}
