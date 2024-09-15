@@ -206,7 +206,7 @@ function Dashboard() {
                     <div className='relative'>
                       <IoNotifications className='text-[purple] text-[25px] ' onClick={() => handleShowNotification()}/>
                       {/* Notification box */}
-                      <div className={`bg-[#f1f1f1] w-[180px] rounded-xl absolute left-[-155px] top-[40px] p-2 ${showNotification ? 'block' : 'hidden'} `}> 
+                      <div className={`bg-[#f1f1f1] w-[180px] rounded-b-2xl rounded-tl-2xl absolute left-[-160px] top-[30px] p-2 ${showNotification ? 'block' : 'hidden'} shadow-2xl `}> 
                         <ul>
                           <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
                           <li><p className='text-[12px] border-b py-1 '>Solomon rejected your request</p></li>
