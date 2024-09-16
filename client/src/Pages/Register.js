@@ -85,7 +85,7 @@ const Register = () => {
     };
 
     return (
-        <div className='bg-[#d0bbd0] w-[100%] flex flex-col items-center justify-center p-4 '>
+        <div className='bg-[#d0bbd0] w-[100%] h-[100vh] flex flex-col items-center p-4 '>
             {isLoading && (
                 <div className='overlay'>
                 <div className='spinner'></div>
