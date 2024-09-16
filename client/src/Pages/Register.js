@@ -102,6 +102,7 @@ const Register = () => {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            required
                         />
                     </div>
                     <div>
@@ -111,6 +112,7 @@ const Register = () => {
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            required
                         />
                     </div>
                     <div>
@@ -120,6 +122,7 @@ const Register = () => {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </div>
                     <div className='password'>
@@ -129,6 +132,7 @@ const Register = () => {
                             type={showPassword ? 'text' : 'password'}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                         <div className='password-display opacity-65' onClick={() => setShowPassword(!showPassword)}>
                             {showPassword ?
@@ -144,6 +148,7 @@ const Register = () => {
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="file"
                             onChange={handlePhotoChange}
+                            required
                         />
                     </div>
                     <div className='flex items-center gap-5'>

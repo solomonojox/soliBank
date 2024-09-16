@@ -227,7 +227,6 @@ function Dashboard() {
                   <IoChatbubbleEllipses className='text-[30px] text-[green] '/>
                 </div>
 
-
                 {/* Balance */}
                 <div className='bg-[purple] rounded-lg p-4 flex justify-between items-start text-white mt-5 md:hidden '>
                   <div>
@@ -323,11 +322,25 @@ function Dashboard() {
 
                 {/* Transaction History */}
                 <div className='bg-[purple] p md:w-[350px] md:h-[200px] text-white md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
-                  <h3 className='font-bold text-[18px] p-4 '>Transaction History</h3>
+                  <div className='border-b flex justify-between items-center p-4'>
+                   <h3 className='font-bold text-[18px] '>Transaction History</h3>
+                   {transactions.length > 4 ? (
+                      <div className='flex justify-end'>
+                        <button
+                          className=' flex items-center text-[white] text-[14px] font-bold rounded-lg hover:bg-[purple] hover:text-[#fff5ff] '
+                          onClick={() => navigate('/transaction-history', { state: location.state })}
+                        >
+                          See More <MdKeyboardDoubleArrowRight/>
+                        </button>
+                      </div>
+                    ):(
+                      <div></div>
+                    )}
+                  </div>
                   {transactions.length > 0 ? (
                     <div>
                       <ul className='grid gap-2'>
-                        {transactions.slice(0, 2).map((transaction, index) => (
+                        {transactions.slice(0, 4).map((transaction, index) => (
                           <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] '>
                             <div className='flex gap-2'>
                               <div className='flex items-center justify-center w-[35px] h-[35px] bg-[white] rounded-full '>
@@ -342,18 +355,6 @@ function Dashboard() {
                           </li>
                         ))}
                       </ul>
-                      {transactions.length > 4 ? (
-                      <div className='border-t flex justify-end'>
-                        <button
-                          className=' flex items-center text-[white] text-[14px] font-bold px-4 py-2 rounded-lg hover:bg-[purple] hover:text-[#fff5ff] '
-                          onClick={() => navigate('/transaction-history', { state: location.state })}
-                        >
-                          More transactions <MdKeyboardDoubleArrowRight/> 
-                        </button>
-                      </div>
-                      ):(
-                        <div></div>
-                      )}
                     </div>
                   ) : (
                     <p>No transactions found.{message}</p>
