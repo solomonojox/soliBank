@@ -9,6 +9,10 @@ import Transfer from './Pages/Transfer';
 import RequestFunds from './Pages/RequestFunds';
 import Airtime from './Pages/Airtime';
 import Data from './Pages/Data';
+import Loans from './Pages/Loans';
+import Cards from './Pages/Cards';
+import Rewards from './Pages/Rewards';
+import PseudoDashboard from './Pages/PseudoDashboard';
 
 import { Navigate } from 'react-router-dom';
 
@@ -28,12 +32,18 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} /> 
                     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route path="/pseudodashboard" element={<ProtectedRoute><PseudoDashboard /></ProtectedRoute>} />
                     <Route path="/transaction-history" element={<ProtectedRoute><TransactionHistory /></ProtectedRoute>} />
                     <Route path="/deposit" element={<ProtectedRoute><Deposit /></ProtectedRoute>} />
                     <Route path="/transfer" element={<ProtectedRoute><Transfer /></ProtectedRoute>} />
                     <Route path="/request-funds" element={<ProtectedRoute><RequestFunds /></ProtectedRoute>} />
                     <Route path="/airtime" element={<ProtectedRoute><Airtime /></ProtectedRoute>} />
                     <Route path="/data" element={<ProtectedRoute><Data /></ProtectedRoute>} />
+                    <Route path="*" element={<Navigate to="/login" replace />} />
+                    <Route path="/logout" element={<Navigate to="/login" replace />} />
+                    <Route path="/loans" element={<ProtectedRoute><Loans/></ProtectedRoute>}/>
+                    <Route path="/cards" element={<ProtectedRoute><Cards/></ProtectedRoute>}/>
+                    <Route path="/rewards" element={<ProtectedRoute><Rewards/></ProtectedRoute>}/>
 
                 </Routes>
             </div>

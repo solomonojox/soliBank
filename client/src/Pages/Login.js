@@ -27,7 +27,7 @@ const Login = () => {
       setIsSuccess(true);
       localStorage.setItem('token', res.data.token);
       setTimeout(() => {
-        navigate('/dashboard', { state: res.data.userDto });
+        navigate('/pseudodashboard', { state: res.data.userDto });
       }, 1500);
       console.log(res.data.userDto);
     })
