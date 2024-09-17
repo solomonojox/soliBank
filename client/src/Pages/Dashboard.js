@@ -24,6 +24,9 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import MenuBar from '../Components/MenuBar';
 
+// Menu
+import { IoMdHome } from "react-icons/io";
+
 
 
 
@@ -205,10 +208,15 @@ function Dashboard() {
               </div>
 
               {/* Menu buttons */}
-              <MenuBar/>
+              <MenuBar
+                home={<div className='flex flex-col items-center text-[12px] text-[purple] font-bold '>
+                  <IoMdHome className='text-[25px] text-[purple] '/>
+                  Home
+                </div>}
+              />
 
               {/* Chat */}
-              <div className='fixed bottom-20 right-2 text-[50px] text-[green] rounded-full bg-[#fff5ff] p-3 '>
+              <div className='fixed bottom-20 right-2 text-[50px] text-[green] rounded-full bg-[#fff5ff] p-3 shadow-xl '>
                 <IoChatbubbleEllipses className='text-[30px] text-[green] '/>
               </div>
 

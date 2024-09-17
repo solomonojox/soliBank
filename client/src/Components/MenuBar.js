@@ -1,4 +1,5 @@
 import React from 'react';
+
 // menu buttons
 import { IoMdHome } from "react-icons/io";
 import { GiCash } from "react-icons/gi";
@@ -6,7 +7,7 @@ import { IoIosGift } from "react-icons/io";
 import { FaUserCircle, FaIdCard } from "react-icons/fa";
 const { useNavigate, useLocation } = require('react-router-dom');
 
-function MenuBar() {
+function MenuBar(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,24 +31,36 @@ function MenuBar() {
     <div className='fixed bottom-0 left-0 h-[65px] w-[100%] bg-[white] flex items-center justify-center p-4 ' >
       <div className='flex justify-between w-[100%] ' >
         <div className='flex flex-col items-center text-[12px]' onClick={() => navigateDashboard() }>
-          <IoMdHome className='text-[25px] text-[purple] ' />
-          home
+          {props.home ?
+            (<>{props.home}</>)
+              :
+            (<><IoMdHome className='text-[25px] text-[grey] ' />Home</>)
+          }
         </div>
         <div className='flex flex-col items-center text-[12px]' onClick={() => navigateLoans() }>
-          <GiCash className='text-[25px] text-[purple] '/>
-          loan
+          {props.loan ?
+            (<>{props.loan}</>)
+              :
+            (<><GiCash className='text-[25px] text-[grey] '/>Loan</>)
+          }
         </div>
         <div className='flex flex-col items-center text-[12px]' onClick={() => navigateCards() }>
-          <FaIdCard className='text-[25px] text-[purple] '/>
-          cards
+          {props.card ?
+            (<>{props.card}</>)
+              :
+            (<><FaIdCard className='text-[25px] text-[grey] '/>Cards</>)
+          }
         </div>
         <div className='flex flex-col items-center text-[12px]' onClick={() => navigateRewards() }>
-          <IoIosGift className='text-[25px] text-[purple] '/>
-          rewards
+          {props.reward ?
+            (<>{props.reward}</>)
+              :
+            (<><IoIosGift className='text-[25px] text-[grey] '/>Rewards</>)
+          }
         </div>
         <div className='flex flex-col items-center text-[12px]'>
-          <FaUserCircle className='text-[25px] text-[purple] '/>
-          user
+          <FaUserCircle className='text-[25px] text-[grey] '/>
+          Me
         </div>
       </div>
     </div>

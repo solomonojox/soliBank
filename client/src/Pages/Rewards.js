@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 
 import MenuBar from '../Components/MenuBar';
+import { IoIosGift } from "react-icons/io";
 
 function Rewards() {
   // const location = useLocation();
@@ -47,7 +48,12 @@ function Rewards() {
   return (
     <div className='grid justify-center items-center h-[100vh]'>
       {/* Menu buttons */}
-      <MenuBar/>
+      <MenuBar
+        reward={<div className='flex flex-col items-center text-[12px] text-[purple] font-bold '>
+          <IoIosGift className='text-[25px] text-[purple] '/>
+          Rewards
+        </div>}
+      />
       <div>
         <div className='border-b py-4 '>
           <div className='bg-[green] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>

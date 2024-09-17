@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 
 import MenuBar from '../Components/MenuBar';
+import { FaIdCard } from "react-icons/fa";
 
 function Cards() {
   // const location = useLocation();
@@ -47,7 +48,12 @@ function Cards() {
   return (
     <div className='grid justify-center items-center h-[100vh]'>
       {/* Menu buttons */}
-      <MenuBar/>
+      <MenuBar
+        card={<div className='flex flex-col items-center text-[12px] text-[purple] font-bold '>
+          <FaIdCard className='text-[25px] text-[purple] '/>
+          Cards
+        </div>}
+      />
       <div>
         <div className='border-b py-4 '>
           <div className='bg-[blue] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>
