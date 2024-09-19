@@ -54,21 +54,24 @@ const Login = () => {
         </div>
         <form onSubmit={handleLogin} className='grid gap-2' id='loginForm' name='login'>
           <div>
-            <label>Email or Username:</label>
+            <label htmlFor='username' >Email or Username:</label>
             <input
               className='w-[250px] p-2 border '
+              name='username'
               type="text"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               required
+              autoComplete='username'
             />
           </div>
           <div className='password'>
-            <label>Password:</label>
+            <label htmlFor='password'>Password:</label>
             <input
               className='w-[250px] p-2 border '
               type={showPassword ? 'text' : 'password'}
               value={password}
+              name='password'
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
