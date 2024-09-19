@@ -29,7 +29,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     // Fetch user details to display initially
-    axios.get(`http://localhost:5000/api/info?email=${location.state.email}`)
+    axios.get(`https://solibank.onrender.com/api/info?email=${location.state.email}`)
       .then(response => {
         setUser(response.data.userDto)
         setPreviewImg(response.data.userDto.profileImg);  // Preview profile image
@@ -70,7 +70,7 @@ const ProfilePage = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/profile/${location.state._id}`, updateData)
+      const response = await axios.put(`https://solibank.onrender.com/api/profile/${location.state._id}`, updateData)
       console.log('Profile updated successfully', response.data);
     } catch (error) {
       console.error('Error updating profile', error);
