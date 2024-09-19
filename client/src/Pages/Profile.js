@@ -31,9 +31,13 @@ const ProfilePage = () => {
           profileImg: response.data.userDto.profileImg
         });
         setPreviewImg(response.data.userDto.profileImg);  // Preview profile image
-        console.log(response.data);
+        // console.log(response.data);
       })
-      .catch(error => console.error('Error fetching user data', error));
+      .catch(error => {
+        console.error('Error fetching user data',
+          // error
+        )
+      });
   }, [location.state.email]);
 
   const handleInputChange = (e) => {
@@ -69,9 +73,9 @@ const ProfilePage = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('Profile updated successfully', response.data);
+      // console.log('Profile updated successfully', response.data);
     } catch (error) {
-      console.error('Error updating profile', error);
+      // console.error('Error updating profile', error);
     }
   };
 

@@ -31,13 +31,13 @@ function Transfer() {
   
           setReceiverName(response.data);
           setIsSuccess(true)
-          console.log(response.data);
+          // console.log(response.data);
         } catch(error){
           setIsSuccess(false)
           if (error.response.data.msg === 'User not found'){
             setReceiverName(error.response.data.msg)
             setIsSuccess(true)
-            console.log(error.response.data)
+            // console.log(error.response.data)
           }
         }
       };
@@ -60,7 +60,7 @@ function Transfer() {
 
       setMessage(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
       alert(`${response.data.msg}, Your balance is ₦ ${response.data.senderBalance}`);
-      console.log(response.data)
+      // console.log(response.data)
       setIsSuccess(true);
       setIsLoading(false);
       
@@ -68,7 +68,7 @@ function Transfer() {
       setMessage(error.response.data.msg);
       setIsLoading(false);
       setIsSuccess(false);
-      console.log(error.response.data)
+      // console.log(error.response.data)
     }
 
     // Clear the form fields

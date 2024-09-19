@@ -36,7 +36,11 @@ const ProfilePage = () => {
         setUser(response.data.userDto)
         setPreviewImg(response.data.userDto.profileImg);
       })
-      .catch(error => console.error('Error fetching user data', error))
+      .catch(error => {
+        console.error('Error fetching user data', 
+          // error
+        )
+      })
       .finally(() => {
         setIsLoading(false)
       }
@@ -76,10 +80,10 @@ const ProfilePage = () => {
 
     try {
       const response = await axios.put(`https://solibank.onrender.com/api/profile/${location.state._id}`, updateData)
-      console.log('Profile updated successfully', response.data);
+      // console.log('Profile updated successfully', response.data);
       alert('Profile updated successfully');
     } catch (error) {
-      console.error('Error updating profile', error);
+      // console.error('Error updating profile', error);
       alert('Error updating profile');
     }
   };

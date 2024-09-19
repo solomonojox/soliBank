@@ -29,12 +29,12 @@ const Login = () => {
       setTimeout(() => {
         navigate('/pseudodashboard', { state: res.data.userDto });
       }, 1500);
-      console.log(res.data.userDto);
+      // console.log(res.data.userDto);
     })
     .catch((error) => {
       setMessage(error.response.data.message);
       setIsSuccess(false);
-      console.log(error.response.data);
+      // console.log(error.response.data);
     })
     .finally(() => setIsLoading(false));
   };

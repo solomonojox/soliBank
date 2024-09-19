@@ -36,11 +36,11 @@ const Register = () => {
 
             try {
                 const res = await axios.post('https://api.cloudinary.com/v1_1/dpyezce56/image/upload', formData);
-                console.log(res.data.secure_url)
+                // console.log(res.data.secure_url)
                 photoUrl = res.data.secure_url; // Get the URL of the uploaded photo
-                console.log(photoUrl);
+                // console.log(photoUrl);
             } catch (error) {
-                console.error('Photo upload failed:', error);
+                // console.error('Photo upload failed:', error);
                 setMessage('Photo upload failed. Please try again.');
                 setIsSuccess(false);
                 return;
@@ -76,10 +76,10 @@ const Register = () => {
                 navigate('/login');
             }, 1500);
 
-            console.log('Registration successful:', response.data);
+            // console.log('Registration successful:', response.data);
         } catch (error) {
             setMessage(error.response.data.msg);
-            console.log(error.response.data)
+            // console.log(error.response.data)
             setIsSuccess(false);
         }
     };

@@ -36,10 +36,10 @@ function Deposit() {
         setAmount('');
         setDescription('');
 
-        console.log(response)
+        // console.log(response)
     } catch (error){
       setMessage(error.response.data.msg)
-      console.log(error.response.data)
+      // console.log(error.response.data)
     }
   }
 
