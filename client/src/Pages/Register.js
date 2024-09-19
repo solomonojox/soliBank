@@ -79,7 +79,7 @@ const Register = () => {
             // console.log('Registration successful:', response.data);
         } catch (error) {
             setMessage(error.response.data.msg);
-            // console.log(error.response.data)
+            // console.log(error.response.data) 
             setIsSuccess(false);
         }
     };
@@ -96,41 +96,45 @@ const Register = () => {
                 <h2 className='text-[30px] font-medium mb-4 '>Register</h2>
                 <form onSubmit={handleRegister} encType='multipart/form-data'>
                     <div>
-                        <label>Full name:</label> <br/>
+                        <label htmlFor='name'>Full name:</label> <br/>
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="text"
                             value={name}
+                            name='name'
                             onChange={(e) => setName(e.target.value)}
                             required
                         />
                     </div>
                     <div>
-                        <label>Username:</label><br/>
+                        <label htmlFor='username'>Username:</label><br/>
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="text"
                             value={username}
+                            name='username'
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
                     </div>
                     <div>
-                        <label>Email:</label><br/>
+                        <label htmlFor='email'>Email:</label><br/>
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="email"
                             value={email}
+                            name='email'
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
                     <div className='password'>
-                        <label>Password:</label><br/>
+                        <label htmlFor='password'>Password:</label><br/>
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type={showPassword ? 'text' : 'password'}
                             value={password}
+                            name='password'
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
@@ -143,10 +147,11 @@ const Register = () => {
                             </div>
                     </div>
                     <div>
-                        <label>Photo:</label><br/>
+                        <label htmlFor='photo'>Photo:</label><br/>
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="file"
+                            name='photo'
                             onChange={handlePhotoChange}
                             required
                         />

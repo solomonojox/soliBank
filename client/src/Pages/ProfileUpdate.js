@@ -80,10 +80,10 @@ const ProfilePage = () => {
 
     try {
       const response = await axios.put(`https://solibank.onrender.com/api/profile/${location.state._id}`, updateData)
-      // console.log('Profile updated successfully', response.data);
+      console.log('Profile updated successfully', response.data.message);
       alert('Profile updated successfully');
     } catch (error) {
-      // console.error('Error updating profile', error);
+      console.error('Error updating profile', error);
       alert('Error updating profile');
     }
   };
@@ -187,7 +187,7 @@ const ProfilePage = () => {
         </div>
         <div className='flex justify-between p-1 '>
           <p>Username:</p>
-          <span>{user.name}</span>
+          <span>{user.username}</span>
         </div>
         <div className='flex justify-between p-1 '>
           <p>Email:</p>
@@ -200,24 +200,26 @@ const ProfilePage = () => {
       </div>
 
       <h2 className='text-[25px] font-medium mt-5 '>Update Profile</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id='profileForm'>
         <div className='mt-4 flex justify-between border rounded-lg'>
-          <label>Name:</label>
+          <label htmlFor='name'>Name:</label>
           <input
             className='outline-none p-2'
             type="text"
             name="name"
+            autoComplete='name'
             placeholder={user.name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
 
         <div className='mt-4 flex justify-between border  rounded-lg'>
-          <label>Email:</label>
+          <label htmlFor='email'>Email:</label>
           <input
             className='outline-none p-2'
             type="email"
             name="email"
+            autoComplete='email'
             value={user.email}
             disabled
             onChange={(e) => setEmail(e.target.value)}
@@ -225,29 +227,31 @@ const ProfilePage = () => {
         </div>
 
         <div className='mt-4 flex justify-between border rounded-lg'>
-          <label>Username:</label>
+          <label htmlFor='username'>Username:</label>
           <input
             className='outline-none p-2'
             type="text"
             name="username"
+            autoComplete='username'
             placeholder={user.username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
 
         <div className='mt-4 flex justify-between border rounded-lg'>
-          <label>Password:</label>
+          <label htmlFor='password'>Password:</label>
           <input
           className='outline-none p-2'
             type="password"
             name="password"
+            autoComplete='password'
             // value=""
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
         <div className='mt-4'>
-          <label>Profile Picture:</label>
+          <label htmlFor='profileImg'>Profile Picture:</label>
           <input
             type="file"
             name="profileImg"
