@@ -331,7 +331,7 @@ function Dashboard() {
                   )}
                 </div>
                 {transactions.length > 0 ? (
-                  <div className='mb-10'>
+                  <div className='mb-20'>
                     <ul className='grid gap-2'>
                       {transactions.slice(0, 4).map((transaction, index) => (
                         <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] '>
