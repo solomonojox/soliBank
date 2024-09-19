@@ -27,6 +27,10 @@ function MenuBar(props) {
     navigate(`/rewards`, { state: location.state });
   }
 
+  const navigateProfile = () => {
+    navigate(`/profile`, { state: location.state });
+  }
+
   return (
     <div className='fixed bottom-0 left-0 h-[65px] w-[100%] bg-[white] flex items-center justify-center p-4 ' >
       <div className='flex justify-between w-[100%] ' >
@@ -58,9 +62,12 @@ function MenuBar(props) {
             (<><IoIosGift className='text-[25px] text-[grey] '/>Rewards</>)
           }
         </div>
-        <div className='flex flex-col items-center text-[12px]'>
-          <FaUserCircle className='text-[25px] text-[grey] '/>
-          Me
+        <div className='flex flex-col items-center text-[12px]' onClick={() => navigateProfile() }>
+          {props.profile ?
+            (<>{props.profile}</>)
+              :
+            (<><FaUserCircle className='text-[25px] text-[grey] '/>Me</>)
+          }
         </div>
       </div>
     </div>

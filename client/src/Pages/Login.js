@@ -68,6 +68,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autocomplete="current-password"
             />
             <div className='password-display opacity-65' onClick={() => setShowPassword(!showPassword)}>
               {showPassword ?

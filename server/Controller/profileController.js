@@ -26,6 +26,7 @@ exports.getUserProfileByEmail = async (req, res) => {
         const userDto = {
             _id: user._id,
             name: user.name,
+            username: user.username,
             email: user.email,
             accountNumber: user.accountNumber,
             balance: user.balance.toLocaleString(),

@@ -13,6 +13,7 @@ import Loans from './Pages/Loans';
 import Cards from './Pages/Cards';
 import Rewards from './Pages/Rewards';
 import PseudoDashboard from './Pages/PseudoDashboard';
+import ProfilePage from './Pages/ProfileUpdate';
 
 import { Navigate } from 'react-router-dom';
 
@@ -44,6 +45,7 @@ function App() {
                     <Route path="/loans" element={<ProtectedRoute><Loans/></ProtectedRoute>}/>
                     <Route path="/cards" element={<ProtectedRoute><Cards/></ProtectedRoute>}/>
                     <Route path="/rewards" element={<ProtectedRoute><Rewards/></ProtectedRoute>}/>
+                    <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
 
                 </Routes>
             </div>
