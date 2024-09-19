@@ -190,7 +190,7 @@ const ProfilePage = () => {
             name="profileImg"
             onChange={handleFileChange}
           />
-          <img src={previewImg} alt="Profile Preview" width="30" /> 
+          <img src={previewImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover ' /> 
         </div>
 
         <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' type="submit">Update Profile</button>
