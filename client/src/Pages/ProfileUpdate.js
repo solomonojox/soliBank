@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MenuBar from '../Components/MenuBar';
+import '../Styles/isLoading.css';
 
 import { CgLogOut } from 'react-icons/cg';
 import { IoNotifications } from "react-icons/io5";
@@ -15,10 +16,11 @@ const ProfilePage = () => {
   const [password, setPassword] = useState('');
   const [profileImg, setProfileImg] = useState(null);
   const [showNotification, setShowNotification] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-  // const navigate = useNavigate();
   const location = useLocation();
   const navigate = useNavigate();
+  let timeoutId;
 
   const [previewImg, setPreviewImg] = useState(null);
   // useEffect(() => {
@@ -28,14 +30,17 @@ const ProfilePage = () => {
   // }, [location.state])
 
   useEffect(() => {
-    // Fetch user details to display initially
+    setIsLoading(true)
     axios.get(`https://solibank.onrender.com/api/info?email=${location.state.email}`)
       .then(response => {
         setUser(response.data.userDto)
-        setPreviewImg(response.data.userDto.profileImg);  // Preview profile image
-        console.log(response.data.userDto);
+        setPreviewImg(response.data.userDto.profileImg);
       })
-      .catch(error => console.error('Error fetching user data', error));
+      .catch(error => console.error('Error fetching user data', error))
+      .finally(() => {
+        setIsLoading(false)
+      }
+      )
   }, [location.state.email]);
 
   const handleFileChange = (e) => {
@@ -72,8 +77,10 @@ const ProfilePage = () => {
     try {
       const response = await axios.put(`https://solibank.onrender.com/api/profile/${location.state._id}`, updateData)
       console.log('Profile updated successfully', response.data);
+      alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile', error);
+      alert('Error updating profile');
     }
   };
 
@@ -85,6 +92,35 @@ const ProfilePage = () => {
     navigate('/login', {replace: true});
   };
 
+  // Reset the inactivity timer
+  const resetTimer = () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(handleLogout, 180000);
+  };
+
+  // Set up event listeners to detect user activity
+  const setupInactivityTimer = () => {
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+    window.addEventListener('click', resetTimer);
+    window.addEventListener('scroll', resetTimer);
+  };
+
+  useEffect(() => {
+    // Initialize the inactivity timer when component mounts
+    resetTimer();
+    setupInactivityTimer();
+
+    // Cleanup event listeners and timer when component unmounts
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('mousemove', resetTimer);
+      window.removeEventListener('keydown', resetTimer);
+      window.removeEventListener('click', resetTimer);
+      window.removeEventListener('scroll', resetTimer);
+    };
+  });
+
   const handleShowNotification = () => {
     if (showNotification) {
       setShowNotification(false)
@@ -95,6 +131,11 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page px-4 ">
+      {isLoading && (
+        <div className='overlay'>
+          <div className='spinner'></div>
+        </div>
+      )}
       {/* Menu buttons */}
       <MenuBar
         profile={<div className='flex flex-col items-center text-[12px] text-[purple] font-bold '>
@@ -134,11 +175,32 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <h2 className='text-[25px] font-medium '>Update Profile</h2>
+      <h2 className='text-[25px] font-medium '>Profile Details</h2>
+      <div>
+        <div className='flex justify-between p-1 '>
+          <p>Name:</p>
+          <span>{user.name}</span>
+        </div>
+        <div className='flex justify-between p-1 '>
+          <p>Username:</p>
+          <span>{user.name}</span>
+        </div>
+        <div className='flex justify-between p-1 '>
+          <p>Email:</p>
+          <span>{user.email}</span>
+        </div>
+        <div className='flex justify-between p-1 '>
+          <p>Account Number:</p>
+          <span>{location.state.accountNumber}</span>
+        </div>
+      </div>
+
+      <h2 className='text-[25px] font-medium mt-5 '>Update Profile</h2>
       <form onSubmit={handleSubmit}>
-        <div className='mt-4 flex justify-between border p-2 rounded-lg'>
+        <div className='mt-4 flex justify-between border rounded-lg'>
           <label>Name:</label>
           <input
+            className='outline-none p-2'
             type="text"
             name="name"
             placeholder={user.name}
@@ -146,15 +208,10 @@ const ProfilePage = () => {
           />
         </div>
 
-        {/* Display Account Number */}
-        <div className='mt-4 flex justify-between border p-2 rounded-lg'>
-          <p>Account Number:</p>
-          <span>{location.state.accountNumber}</span>
-        </div>
-
-        <div className='mt-4 flex justify-between border p-2 rounded-lg'>
+        <div className='mt-4 flex justify-between border  rounded-lg'>
           <label>Email:</label>
           <input
+            className='outline-none p-2'
             type="email"
             name="email"
             value={user.email}
@@ -163,9 +220,10 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 flex justify-between border p-2 rounded-lg'>
+        <div className='mt-4 flex justify-between border rounded-lg'>
           <label>Username:</label>
           <input
+            className='outline-none p-2'
             type="text"
             name="username"
             placeholder={user.username}
@@ -173,9 +231,10 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 flex justify-between border p-2 rounded-lg'>
+        <div className='mt-4 flex justify-between border rounded-lg'>
           <label>Password:</label>
           <input
+          className='outline-none p-2'
             type="password"
             name="password"
             // value=""
@@ -190,7 +249,7 @@ const ProfilePage = () => {
             name="profileImg"
             onChange={handleFileChange}
           />
-          <img src={previewImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover ' /> 
+          <img src={previewImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover mt-2' /> 
         </div>
 
         <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' type="submit">Update Profile</button>
