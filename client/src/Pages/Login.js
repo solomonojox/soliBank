@@ -47,8 +47,11 @@ const Login = () => {
         </div>
       )}
 
-      <div className='flex flex-col gap-2 justify-center h-[350px] w-[300px] p-6 bg-white '>
-        <h2 className='text-[30px] font-medium '>Login</h2>
+      <div className='flex flex-col gap-2 justify-center items-center h-[380px] w-[300px] p-6 bg-white '>
+        <div className='flex flex-col items-center mb-4'>
+          <img src='../images/logo.png' className='w-[50px]' alt='logo' />
+          <h2 className='text-[20px] font-medium '>Welcome to Solibank</h2>
+        </div>
         <form onSubmit={handleLogin} className='grid gap-2'>
           <div>
             <label>Email or Username:</label>
@@ -78,7 +81,7 @@ const Login = () => {
               }
             </div>
           </div>
-          <button type="submit" className='bg-[purple] p-2 rounded text-white text-[18px] '>Login</button>
+          <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] opacity-[${password.length > 0 && identifier.length > 0 ? '100%':'25%'}] `} disabled={password.length < 1}>Login</button>
         </form>
         <p className={`text-[14px] text-[${isSuccess ? 'green' : 'red'}]`}>{message}</p>
         <p className={`text-[#666] text-[14px] ${isSuccess ? 'hidden':'block'} `}>Don't have an account? <Link to='/register' className='font-bold text-[purple]'>Sign up</Link></p>
