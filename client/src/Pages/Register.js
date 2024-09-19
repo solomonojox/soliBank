@@ -85,7 +85,7 @@ const Register = () => {
     };
 
     return (
-        <div className='bg-[#d0bbd0] w-[100%] h-[100vh] flex flex-col items-center p-4 '>
+        <div className='bg-[#d0bbd0] w-[100%] md:h-[100vh] flex flex-col items-center p-4 '>
             {isLoading && (
                 <div className='overlay'>
                 <div className='spinner'></div>
@@ -155,7 +155,7 @@ const Register = () => {
                         <input
                             className='w-[100%] p-3 bg-[#e8f0fe66] rounded mb-4 border border-[purple] '
                             type="file"
-                            name='photo'
+                            id='photo'
                             onChange={handlePhotoChange}
                             required
                         />
