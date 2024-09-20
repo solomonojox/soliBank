@@ -84,7 +84,7 @@ const Login = () => {
               }
             </div>
           </div>
-          <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] opacity-[${password.length < 1 || identifier.length < 1 ? '25%':'100%'}] `} disabled={password.length < 1}>Login</button>
+          <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] opacity-[${password.length < 1 ? '25%':'100%'}] `} disabled={password.length < 1}>Login</button>
         </form>
         <p className={`text-[14px] text-[${isSuccess ? 'green' : 'red'}]`}>{message}</p>
         <p className={`text-[#666] text-[14px] ${isSuccess ? 'hidden':'block'} `}>Don't have an account? <Link to='/register' className='font-bold text-[purple]'>Sign up</Link></p>

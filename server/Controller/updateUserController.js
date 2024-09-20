@@ -6,7 +6,21 @@ const router = express.Router();
 // Update user profile
 router.put('/profile/:id', async (req, res) => {
     try {
-        const { name, email, username, password, profileImg } = req.body;
+        const { currentPassword, name, email, username, password, profileImg } = req.body;
+
+        // Fetch the user by ID
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Verify current password
+        const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+        if (!isPasswordCorrect) {
+            return res.status(401).json({ message: 'Current password is incorrect' });
+        }
+
         const updates = {};
 
         // Check if the user is trying to update their password and hash it
@@ -22,13 +36,13 @@ router.put('/profile/:id', async (req, res) => {
         if (profileImg) updates.profileImg = profileImg;
 
         // Update the user in the database
-        const user = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        // if (!user) {
+        //     return res.status(404).json({ message: 'User not found' });
+        // }
 
-        res.json(user);
+        res.json(updatedUser);
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }
