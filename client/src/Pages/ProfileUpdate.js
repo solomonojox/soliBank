@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   let timeoutId;
 
-  const [previewImg, setPreviewImg] = useState(null);
+  // const [previewImg, setPreviewImg] = useState(null);
   // useEffect(() => {
   //   if (location.state) {
   //     setPreviewImg(location.state.profileImg)
@@ -36,7 +36,7 @@ const ProfilePage = () => {
     axios.get(`https://solibank.onrender.com/api/info?email=${location.state.email}`)
       .then(response => {
         setUser(response.data.userDto)
-        setPreviewImg(response.data.userDto.profileImg);
+        setProfileImg(response.data.userDto.profileImg);
       })
       .catch(error => {
         console.error('Error fetching user data', 
@@ -56,7 +56,7 @@ const ProfilePage = () => {
     // Preview the uploaded image
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPreviewImg(reader.result);
+      setProfileImg(reader.result);
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -77,7 +77,7 @@ const ProfilePage = () => {
       email,
       username,
       password,
-      profileImg: previewImg
+      profileImg
     };
 
     try {
@@ -259,10 +259,10 @@ const ProfilePage = () => {
             name="profileImg"
             onChange={handleFileChange}
           />
-          <img src={previewImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover mt-2' /> 
+          <img src={profileImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover mt-2' /> 
         </div>
 
-        <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' type="submit">Update Profile</button>
+        <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' type="submit">Update Profile</button> 
       </form>
     </div>
   );
