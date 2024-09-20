@@ -17,8 +17,8 @@ const ProfilePage = () => {
   const [profileImg, setProfileImg] = useState(null);
   const [showNotification, setShowNotification] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
-  const [showPasswordPopup, setShowPasswordPopup] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState('');
+  // const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+  // const [currentPassword, setCurrentPassword] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
