@@ -84,13 +84,13 @@ const Login = () => {
               }
             </div>
           </div>
-          <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] opacity-[${password.length > 0 && identifier.length > 0 ? '100%':'25%'}] `} disabled={password.length < 1}>Login</button>
+          <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] opacity-[${password.length < 1 || identifier.length < 1 ? '25%':'100%'}] `} disabled={password.length < 1}>Login</button>
         </form>
         <p className={`text-[14px] text-[${isSuccess ? 'green' : 'red'}]`}>{message}</p>
         <p className={`text-[#666] text-[14px] ${isSuccess ? 'hidden':'block'} `}>Don't have an account? <Link to='/register' className='font-bold text-[purple]'>Sign up</Link></p>
       </div>
 
-      <div className='md:bg-[purple] md:h-[350px] md:w-[300px] md:flex flex-col md:gap-5 md:items-center md:justify-center hidden '>
+      <div className='md:bg-[purple] md:h-[350px] md:w-[300px] flex flex-col md:gap-5 md:items-center md:justify-center hidden '>
         <p className='text-white text-[20px] font-medium '>Welcome to SoliBank</p>
         <img src='./images/login.png' className='w-[200px] ' alt='img'/>
       </div>

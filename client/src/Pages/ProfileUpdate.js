@@ -75,7 +75,7 @@ const ProfilePage = () => {
       email,
       username,
       password,
-      profileImg
+      profileImg: previewImg
     };
 
     try {
