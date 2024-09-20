@@ -17,19 +17,13 @@ const ProfilePage = () => {
   const [profileImg, setProfileImg] = useState(null);
   const [showNotification, setShowNotification] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
-  // const [showPasswordPopup, setShowPasswordPopup] = useState(false);
-  // const [currentPassword, setCurrentPassword] = useState('');
+  const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  // const [error, setError] = useState('')
 
   const location = useLocation();
   const navigate = useNavigate();
   let timeoutId;
-
-  // const [previewImg, setPreviewImg] = useState(null);
-  // useEffect(() => {
-  //   if (location.state) {
-  //     setPreviewImg(location.state.profileImg)
-  //   }
-  // }, [location.state])
 
   useEffect(() => {
     setIsLoading(true)
@@ -63,30 +57,31 @@ const ProfilePage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleUpdateClick = (e) => {
+    e.preventDefault()
+    setShowPasswordPopup(true)
+  }
+
+  const handlePasswordPopupSubmit = async (e) => {
     e.preventDefault();
-
-    // const formDataToSubmit = new FormData();
-    // formDataToSubmit.append('name', formData.name);
-    // formDataToSubmit.append('email', formData.email);
-    // if (location.state.password) formDataToSubmit.append('password', formData.password);
-    // if (location.state.profileImg) formDataToSubmit.append('profileImg', formData.profileImg);
-
     const updateData = {
       name,
       email,
       username,
       password,
-      profileImg
+      profileImg,
+      currentPassword
     };
 
     try {
       const response = await axios.put(`https://solibank.onrender.com/api/profile/${location.state._id}`, updateData)
-      console.log('Profile updated successfully', response.data.message);
+      console.log('Profile updated successfully', response.data);
       alert('Profile updated successfully');
+      setShowPasswordPopup(false);
     } catch (error) {
       console.error('Error updating profile', error);
-      alert('Error updating profile');
+      alert(error.response.data.message);
+      // setError(error.response.data.message)
     }
   };
 
@@ -101,7 +96,7 @@ const ProfilePage = () => {
   // Reset the inactivity timer
   const resetTimer = () => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(handleLogout, 180000);
+    timeoutId = setTimeout(handleLogout, 1800000000);
   };
 
   // Set up event listeners to detect user activity
@@ -201,9 +196,10 @@ const ProfilePage = () => {
         </div>
       </div>
 
+      {/* Update */}
       <h2 className='text-[25px] font-medium mt-5 '>Update Profile</h2>
-      <form onSubmit={handleSubmit} id='profileForm'>
-        <div className='mt-4 flex justify-between border rounded-lg'>
+      <form id='profileForm'>
+        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
           <label htmlFor='name'>Name:</label>
           <input
             className='outline-none p-2'
@@ -215,7 +211,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 flex justify-between border  rounded-lg'>
+        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
           <label htmlFor='email'>Email:</label>
           <input
             className='outline-none p-2'
@@ -228,7 +224,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 flex justify-between border rounded-lg'>
+        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
           <label htmlFor='username'>Username:</label>
           <input
             className='outline-none p-2'
@@ -240,7 +236,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 flex justify-between border rounded-lg'>
+        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
           <label htmlFor='password'>Password:</label>
           <input
           className='outline-none p-2'
@@ -262,8 +258,47 @@ const ProfilePage = () => {
           <img src={profileImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover mt-2' /> 
         </div>
 
-        <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' type="submit">Update Profile</button> 
+        <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' onClick={handleUpdateClick}>Update Profile</button> 
       </form>
+
+      <div>
+        {/* Password Popup */}
+        {showPasswordPopup && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded shadow-lg">
+              <h3 className="text-xl font-semibold mb-4">Enter Current Password</h3>
+              {/* {error && <p className="text-red-500 mb-2">{error}</p>} */}
+              <form onSubmit={handlePasswordPopupSubmit}>
+                <div className="mt-4 flex flex-col">
+                  <label htmlFor="currentPassword">Current Password:</label>
+                  <input
+                    className="outline-none p-2 border rounded mt-1"
+                    type="password"
+                    name="currentPassword"
+                    autoComplete="current-password"
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                  />
+                </div>
+                <div className="flex mt-6">
+                  <button
+                    className="bg-[purple] p-2 rounded text-white text-[18px] mr-2"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    className="bg-gray-500 p-2 rounded text-white text-[18px]"
+                    type="button"
+                    onClick={() => setShowPasswordPopup(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
