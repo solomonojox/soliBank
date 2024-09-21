@@ -6,7 +6,7 @@ const router = express.Router();
 // Update user profile
 router.put('/profile/:id', async (req, res) => {
     try {
-        const { currentPassword, name, email, username, password, profileImg } = req.body;
+        const { currentPassword, name, email, username, password } = req.body;
 
         // Fetch the user by ID
         const user = await User.findById(req.params.id);
@@ -33,14 +33,10 @@ router.put('/profile/:id', async (req, res) => {
         if (name) updates.name = name;
         if (email) updates.email = email;
         if (username) updates.username = username;
-        if (profileImg) updates.profileImg = profileImg;
+        // if (profileImg) updates.profileImg = profileImg;
 
         // Update the user in the database
         const updatedUser = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
-
-        // if (!user) {
-        //     return res.status(404).json({ message: 'User not found' });
-        // }
 
         res.json(updatedUser);
     } catch (error) {

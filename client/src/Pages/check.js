@@ -7,7 +7,6 @@ import '../Styles/isLoading.css';
 import { CgLogOut } from 'react-icons/cg';
 import { IoNotifications } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
-import { FaPlusCircle } from "react-icons/fa";
 
 const ProfilePage = () => {
   const [user, setUser] = useState('')
@@ -15,24 +14,29 @@ const ProfilePage = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [photos, setPhotos] = useState(null);
+  const [profileImg, setProfileImg] = useState(null);
   const [showNotification, setShowNotification] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
-  const [showPasswordPopup, setShowPasswordPopup] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState('');
-  // const [message, setMessage] = useState('');
-  // const [isSuccess, setIsSuccess] = useState(false);
+  // const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+  // const [currentPassword, setCurrentPassword] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
   let timeoutId;
+
+  // const [previewImg, setPreviewImg] = useState(null);
+  // useEffect(() => {
+  //   if (location.state) {
+  //     setPreviewImg(location.state.profileImg)
+  //   }
+  // }, [location.state])
 
   useEffect(() => {
     setIsLoading(true)
     axios.get(`https://solibank.onrender.com/api/info?email=${location.state.email}`)
       .then(response => {
         setUser(response.data.userDto)
-        setPhotos(response.data.userDto.profileImg);
+        setProfileImg(response.data.userDto.profileImg);
       })
       .catch(error => {
         console.error('Error fetching user data', 
@@ -45,98 +49,44 @@ const ProfilePage = () => {
       )
   }, [location.state.email]);
 
-  // Select image
-  const handleIconClick = () => {
-    document.getElementById('fileInput').click();
-  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImg({ profileImg: file });
 
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setPhoto({ profileImg: file });
-  // }
-
-  const handlePhotoChange = async (e) => {
-    // const file = e.target.files[0];
-    setPhotos(e.target.files[0]);
-    /*
     // Preview the uploaded image
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPhoto(reader.result);
+      setProfileImg(reader.result);
     };
     if (file) {
       reader.readAsDataURL(file);
-    } */
-
-    // Upload photo to Cloudinary
-    let photoUrl = '';
-    if (photos) {
-      const formData = new FormData();
-      formData.append('file', photos);
-      formData.append('upload_preset', 'solibank'); // Replace with your Cloudinary upload preset
-      formData.append('cloud_name', 'dpyezce56'); // Replace with your Cloudinary cloud name
-
-      try {
-          const res = await axios.post('https://api.cloudinary.com/v1_1/dpyezce56/image/upload', formData);
-          // console.log(res.data.secure_url)
-          photoUrl = res.data.secure_url; // Get the URL of the uploaded photo
-          console.log(photoUrl);
-      } catch (error) {
-          // console.error('Photo upload failed:', error);
-          // setMessage('Photo upload failed. Please try again.');
-          // setIsSuccess(false);
-          return;
-      }
-    }
-
-    const updateData = {
-      profileImg: photoUrl
-    };
-
-    try {
-      const response = await axios.put(`http://localhost:5000/api/profile/${location.state._id}`, updateData)
-      console.log('Profile updated successfully', response.data);
-      alert('Profile updated successfully');
-      console.log(response)
-      setShowPasswordPopup(false);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error updating profile', error);
-      alert(error.response.data.message);
-      setIsLoading(false);
-      // setError(error.response.data.message)
     }
   };
-  
 
-  const handleUpdateClick = (e) => {
-    e.preventDefault()
-    setShowPasswordPopup(true)
-  }
-
-  const handlePasswordPopupSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+
+    // const formDataToSubmit = new FormData();
+    // formDataToSubmit.append('name', formData.name);
+    // formDataToSubmit.append('email', formData.email);
+    // if (location.state.password) formDataToSubmit.append('password', formData.password);
+    // if (location.state.profileImg) formDataToSubmit.append('profileImg', formData.profileImg);
 
     const updateData = {
       name,
       email,
       username,
       password,
-      currentPassword
+      profileImg
     };
 
     try {
       const response = await axios.put(`https://solibank.onrender.com/api/profile/${location.state._id}`, updateData)
-      console.log('Profile updated successfully', response.data);
+      console.log('Profile updated successfully', response.data.message);
       alert('Profile updated successfully');
-      setShowPasswordPopup(false);
-      setIsLoading(false);
     } catch (error) {
       console.error('Error updating profile', error);
-      alert(error.response.data.message);
-      setIsLoading(false);
-      // setError(error.response.data.message)
+      alert('Error updating profile');
     }
   };
 
@@ -151,7 +101,7 @@ const ProfilePage = () => {
   // Reset the inactivity timer
   const resetTimer = () => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(handleLogout, 1800000000);
+    timeoutId = setTimeout(handleLogout, 180000);
   };
 
   // Set up event listeners to detect user activity
@@ -203,10 +153,7 @@ const ProfilePage = () => {
       {/* Profile welcome */}
       <div className='py-4 px-1 flex justify-between items-start md:hidden bg-white ' style={{ position: 'sticky', top: 0 }}>
         <div className='flex items-center gap-1 md:hidden'>
-          <div className='relative '>
-            <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
-            <FaPlusCircle className='absolute bottom-[0] right-2 text-[20px] text-[purple] bg-white rounded-full ' onClick={() => handleIconClick()}/>
-          </div>
+          <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
           <div className='w-[200px] '>
             <h3 className='text-[14px] font-bold '>{user.name}</h3>
             <p className='text-[12px] my-[-3px] text-[purple] '>account no - {user.accountNumber}</p>
@@ -232,11 +179,8 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-        <input id='fileInput' type='file' accept='image/*' style={{ display: 'none' }} onChange={handlePhotoChange}
-        />
       </div>
 
-      {/* Profile details */}
       <h2 className='text-[25px] font-medium '>Profile Details</h2>
       <div>
         <div className='flex justify-between p-1 '>
@@ -257,10 +201,9 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      {/* Update */}
       <h2 className='text-[25px] font-medium mt-5 '>Update Profile</h2>
-      <form id='profileForm'>
-        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
+      <form onSubmit={handleSubmit} id='profileForm'>
+        <div className='mt-4 flex justify-between border rounded-lg'>
           <label htmlFor='name'>Name:</label>
           <input
             className='outline-none p-2'
@@ -272,7 +215,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
+        <div className='mt-4 flex justify-between border  rounded-lg'>
           <label htmlFor='email'>Email:</label>
           <input
             className='outline-none p-2'
@@ -285,7 +228,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
+        <div className='mt-4 flex justify-between border rounded-lg'>
           <label htmlFor='username'>Username:</label>
           <input
             className='outline-none p-2'
@@ -297,7 +240,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className='mt-4 px-2 flex items-center justify-between border rounded-lg'>
+        <div className='mt-4 flex justify-between border rounded-lg'>
           <label htmlFor='password'>Password:</label>
           <input
           className='outline-none p-2'
@@ -309,7 +252,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        {/* <div className='mt-4'>
+        <div className='mt-4'>
           <label htmlFor='profileImg'>Profile Picture:</label>
           <input
             type="file"
@@ -317,49 +260,10 @@ const ProfilePage = () => {
             onChange={handleFileChange}
           />
           <img src={profileImg} alt="Profile Preview" className='rounded-full w-[30px] h-[30px] object-cover mt-2' /> 
-        </div> */}
+        </div>
 
-        <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' onClick={handleUpdateClick}>Update Profile</button> 
+        <button className='mt-4 mb-20 bg-[purple] p-2 rounded text-white text-[18px] ' type="submit">Update Profile</button> 
       </form>
-
-      <div>
-        {/* Password Popup */}
-        {showPasswordPopup && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-6 rounded shadow-lg">
-              <h3 className="text-xl font-semibold mb-4">Enter Current Password</h3>
-              {/* {error && <p className="text-red-500 mb-2">{error}</p>} */}
-              <form onSubmit={handlePasswordPopupSubmit}>
-                <div className="mt-4 flex flex-col">
-                  <label htmlFor="currentPassword">Current Password:</label>
-                  <input
-                    className="outline-none p-2 border rounded mt-1"
-                    type="password"
-                    name="currentPassword"
-                    autoComplete="current-password"
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                  />
-                </div>
-                <div className="flex mt-6">
-                  <button
-                    className="bg-[purple] p-2 rounded text-white text-[18px] mr-2"
-                    type="submit"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    className="bg-gray-500 p-2 rounded text-white text-[18px]"
-                    type="button"
-                    onClick={() => setShowPasswordPopup(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 };

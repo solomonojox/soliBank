@@ -70,6 +70,11 @@ const transferFunds = async (req, res) => {
             return res.status(404).send({ msg: 'Recipient not found' });
         }
 
+        // Check if sender is same as recipient
+        if (fromAccount == toAccount) {
+            return res.status(400).json({ msg: 'You cannot transfer funds to yourself' });
+        }
+
         // Check if sender has enough balance
         if (sender.balance < amount) {
             return res.status(400).json({ msg: 'Insufficient funds' });

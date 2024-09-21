@@ -15,6 +15,7 @@ const userRoutes = require('./Routes/userRoute');
 const transactionRoutes = require('./Routes/transactionRoute');
 const profileRoute = require('./Routes/profileRoute');
 const userUpdate = require('./Controller/updateUserController')
+const userPhotoUpdate = require('./Controller/updatePhotoController')
 
 // Initialize dotenv to manage environment variables
 dotenv.config();
@@ -58,7 +59,8 @@ mongoose.connect(process.env.DATABASE_URL, {
 app.use('/api/users', userRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/', profileRoute);
-app.use('/api', userUpdate)
+app.use('/api', userUpdate);
+app.use('/api', userPhotoUpdate);
 // // Serve static files from the 'uploads' directory
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
