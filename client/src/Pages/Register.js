@@ -161,7 +161,7 @@ const Register = () => {
                         />
                     </div>
                     <div className='flex items-center gap-5'>
-                        <button type="submit" className={`bg-[purple] py-2 px-4 text-white font-medium rounded opacity-[${password.length > 0 && name.length > 0 && username.length > 0 && email.length > 0 ? '100%':'25%'}] `} disabled={password.length < 1}>Register</button>
+                        <button type="submit" className={`bg-[purple] py-2 px-4 text-white font-medium rounded opacity-[${password.length > 0 || name.length > 0 || username.length > 0 || email.length > 0 ? '100%':'25%'}] `} disabled={password.length < 1}>Register</button>
                         <p className={`${isSuccess ? 'hidden' : 'block'} text-[14px]`}>Already registered? <Link to='/login' className='text-[green] font-bold '>Sign in</Link></p>
                     </div>
                 </form>
