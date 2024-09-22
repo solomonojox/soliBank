@@ -156,7 +156,13 @@ function Dashboard() {
       <div>
         {isLoading && (
           <div className='overlay'>
-            <div className='spinner'></div>
+            {/* <div className='spinner'></div> */}
+            <div className='ball'>
+              <div className='ball1'></div>
+              <div className='ball2'></div>
+              <div className='ball3'></div>
+              <div className='ball4'></div>
+            </div>
           </div>
         )}
         <div className='flex items-center justify-center md:h-[100vh] w-[100%] bg-[#fff5ff] '>

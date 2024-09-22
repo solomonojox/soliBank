@@ -27,6 +27,41 @@
   animation: spin 1s linear infinite;
 }
 
+.ball1, .ball2, .ball3, .ball4{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: purple;
+  opacity: 60%;
+  position: absolute;
+}
+.ball1{
+  left: 0;
+  top: 0;
+}
+.ball2{
+  top: 0;
+  right: 0;
+}
+.ball3{
+  bottom: 0;
+  right: 0;
+}
+.ball4{
+  bottom: 0;
+  left: 0;
+}
+.ball{
+  width: 60px;
+  height: 60px;
+  position: relative;
+  animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+  0%{ transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+
 /* Spinner animation */
 @keyframes spin {
   0% {

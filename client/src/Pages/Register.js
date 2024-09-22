@@ -88,7 +88,13 @@ const Register = () => {
         <div className='bg-[#d0bbd0] w-[100%] flex flex-col items-center p-4 '>
             {isLoading && (
                 <div className='overlay'>
-                <div className='spinner'></div>
+                    {/* <div className='spinner'></div> */}
+                    <div className='ball'>
+                        <div className='ball1'></div>
+                        <div className='ball2'></div>
+                        <div className='ball3'></div>
+                        <div className='ball4'></div>
+                    </div>
                 </div>
             )}
             <div className='bg-[white] p-5 md:w-[400px] '>
