@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import '../Styles/Loader.css';
 
 function PseudoDashboard() {
   // const location = useLocation();
@@ -17,14 +16,17 @@ function PseudoDashboard() {
   return (
     <div className='grid justify-center items-center h-[100vh]'>
       <div className="loader-container">
-        <div className="loader">
-          <div className="spinner"></div>
-          <p>Please wait...</p>
-
-          <div className='foot flex gap-4'>
-            <img src='../images/cbn.png' className='w-[20px]' alt='icon'/>
-            <p className='text-[12px]'>licensed by CBN</p>
+        <div className=''>
+          <div className='ball'>
+            <div className='ball1'></div>
+            <div className='ball2'></div>
+            <div className='ball3'></div>
+            <div className='ball4'></div>
           </div>
+        </div>
+        <div className='foot flex gap-4'>
+          <img src='../images/cbn.png' className='w-[20px]' alt='icon'/>
+          <p className='text-[12px]'>licensed by CBN</p>
         </div>
       </div>
     </div>
