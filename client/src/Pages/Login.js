@@ -19,7 +19,7 @@ const Login = () => {
     setIsLoading(true);
 
     axios.post('https://solibank.onrender.com/api/users/login', {
-      identifier, // changed from email to identifier
+      identifier,
       password,
     })
     .then((res) => {
@@ -56,7 +56,7 @@ const Login = () => {
       <div className='flex flex-col gap-2 justify-center items-center h-[380px] w-[300px] p-6 bg-white '>
         <div className='flex flex-col items-center mb-4'>
           <img src='../images/logo.png' className='w-[50px]' alt='logo' />
-          <h2 className='text-[20px] font-medium '>Welcome to Solibank</h2>
+          <h2 className='text-[20px] font-medium '>Welcome to SoliPay</h2>
         </div>
         <form onSubmit={handleLogin} className='grid gap-2' id='loginForm' name='login'>
           <div>
