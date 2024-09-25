@@ -185,7 +185,7 @@ function Dashboard() {
               {/* Profile welcome */}
               <div className='py-4 px-1 flex justify-between items-start md:hidden bg-white ' style={{ position: 'sticky', top: 0 }}>
                 <div className='flex items-center gap-1 md:hidden'>
-                  <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' />
+                  <img src={user.profileImg} alt='profile' className='rounded-full w-[50px] h-[50px] object-cover ' onClick={() => navigate('/profile', { state: location.state })}/>
                   <div className='w-[200px] '>
                     <h3 className='text-[14px] font-bold '>{user.name}</h3>
                     <p className='text-[12px] my-[-3px] text-[purple] '>account no - {user.accountNumber}</p>
