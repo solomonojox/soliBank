@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className='flex items-center justify-center h-[100vh] w-[100%] bg-[#d0bbd0] '>
+    <div className='loginbg flex items-center justify-center h-[100vh] w-[100%] md:bg-[purple] '>
       {isLoading && (
         <div className='overlay'>
           {/* <div className='spinner'></div> */}
@@ -53,52 +53,53 @@ const Login = () => {
         </div>
       )}
 
-      <div className='flex flex-col gap-2 justify-center items-center h-[380px] w-[300px] p-6 bg-white '>
-        <div className='flex flex-col items-center mb-4'>
-          <img src='../images/logo.png' className='w-[50px]' alt='logo' />
-          <h2 className='text-[20px] font-medium '>Welcome to SoliPay</h2>
-        </div>
-        <form onSubmit={handleLogin} className='grid gap-2' id='loginForm' name='login'>
-          <div>
-            <label htmlFor='username' >Email or Username:</label>
-            <input
-              className='w-[250px] p-2 border '
-              name='username'
-              type="text"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-              required
-              autoComplete='username'
-            />
+      <div className='flex items-center justify-center rounded-2xl overflow-hidden '>
+        <div className='flex flex-col gap-2 justify-center items-center h-[450px] w-[300px] p-6 bg-[white] md:h-[450px] md:w-[350px] '>
+          <div className='flex flex-col items-center mb-4'>
+            <img src='../images/logo.png' className='w-[50px]' alt='logo' />
+            <h2 className='text-[20px] font-medium '>Welcome to SoliPay</h2>
           </div>
-          <div className='password'>
-            <label htmlFor='password'>Password:</label>
-            <input
-              className='w-[250px] p-2 border '
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              name='password'
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-            />
-            <div className='password-display opacity-65' onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ?
-                <img src='../images/closed-eye-black.svg' className='w-[20px]' alt='icon' />
-                :
-                <img src='../images/opened-eye-black.svg' className='w-[20px]' alt='icon' />
-              }
+          <form onSubmit={handleLogin} className='grid gap-2' id='loginForm' name='login'>
+            <div>
+              <label htmlFor='username' >Email or Username:</label>
+              <input
+                className='w-[250px] p-2 border border-[purple] '
+                name='username'
+                type="text"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                required
+                autoComplete='username'
+              />
             </div>
-          </div>
-          <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] ${password.length < 1 || identifier.length < 1 ? 'opacity-25' : 'opacity-100'} `} disabled={password.length < 1}>Login</button>
-        </form>
-        <p className={`text-[14px] text-[${isSuccess ? 'green' : 'red'}]`}>{message}</p>
-        <p className={`text-[#666] text-[14px] ${isSuccess ? 'hidden':'block'} `}>Don't have an account? <Link to='/register' className='font-bold text-[purple]'>Sign up</Link></p>
-      </div>
+            <div className='password'>
+              <label htmlFor='password'>Password:</label>
+              <input
+                className='w-[250px] p-2 border '
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                name='password'
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+              />
+              <div className='password-display opacity-65' onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ?
+                  <img src='../images/closed-eye-black.svg' className='w-[20px]' alt='icon' />
+                  :
+                  <img src='../images/opened-eye-black.svg' className='w-[20px]' alt='icon' />
+                }
+              </div>
+            </div>
+            <button type="submit" className={`bg-[purple] p-2 rounded text-white text-[18px] ${password.length < 1 || identifier.length < 1 ? 'opacity-25' : 'opacity-100'} `} disabled={password.length < 1}>Login</button>
+          </form>
+          <p className={`text-[14px] text-[${isSuccess ? 'green' : 'red'}]`}>{message}</p>
+          <p className={`text-[#666] text-[14px] ${isSuccess ? 'hidden':'block'} `}>Don't have an account? <Link to='/register' className='font-bold text-[purple]'>Sign up</Link></p>
+        </div>
 
-      <div className='md:bg-[purple] md:h-[350px] md:w-[300px] flex flex-col md:gap-5 md:items-center md:justify-center hidden '>
-        <p className='text-white text-[20px] font-medium '>Welcome to SoliBank</p>
-        <img src='./images/login.png' className='w-[200px] ' alt='img'/>
+        <div className='md:bg-[purple] md:h-[450px] md:w-[350px] flex flex-col md:gap-5 md:items-center md:justify-center hidden md:block '>
+          <img src='./images/login-img2.jpg' className='w-[100%] object-cover h-[100%] ' alt='img'/>
+        </div>
       </div>
     </div>
   );
