@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import '../Styles/password.css'
-import '../Styles/isLoading.css'
+import '../Styles/password.css';
+import '../Styles/isLoading.css';
 
 const Login = () => {
   const [identifier, setIdentifier] = useState('');
@@ -63,7 +63,7 @@ const Login = () => {
             <div>
               <label htmlFor='username' >Email or Username:</label>
               <input
-                className='w-[250px] p-2 border border-[purple] '
+                className='w-[100%] p-2 border border-[purple] '
                 name='username'
                 type="text"
                 value={identifier}
@@ -75,7 +75,7 @@ const Login = () => {
             <div className='password'>
               <label htmlFor='password'>Password:</label>
               <input
-                className='w-[250px] p-2 border '
+                className='w-[100%] p-2 border '
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 name='password'

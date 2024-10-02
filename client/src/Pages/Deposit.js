@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../Styles/isLoading.css';
 
 function Deposit() {
 
@@ -8,7 +9,8 @@ function Deposit() {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [message, setMessage] = useState('');
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -22,6 +24,7 @@ function Deposit() {
 
   const handleDeposit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try{
       const response = await axios.post('https://solibank.onrender.com/api/transactions/deposit', {
@@ -32,6 +35,7 @@ function Deposit() {
         setMessage(`${response.data.msg}, New balance: ₦ ${response.data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
         alert(`${response.data.msg}, New balance: ₦ ${response.data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
         setIsSuccess(true)
+        setIsLoading(false)
         // clear field
         setAmount('');
         setDescription('');
@@ -39,6 +43,7 @@ function Deposit() {
         // console.log(response)
     } catch (error){
       setMessage(error.response.data.msg)
+      setIsLoading(false)
       // console.log(error.response.data)
     }
   }
@@ -83,6 +88,17 @@ function Deposit() {
 
   return (
     <div className='md:flex items-center justify-center h-[100vh] md:bg-[#fff5ff] '>
+      {isLoading && (
+        <div className='overlay'>
+          {/* <div className='spinner'></div> */}
+          <div className='ball'>
+            <div className='ball1'></div>
+            <div className='ball2'></div>
+            <div className='ball3'></div>
+            <div className='ball4'></div>
+          </div>
+        </div>
+      )}
       <div className='md:w-[450px] bg-white p-8 '>
         <div className='border-b py-4 mb-10 '>
             <button onClick={() => navigateDashboard()} className='bg-[purple] text-white py-2 px-2 rounded-lg hover:bg-[#a617a6] flex gap-2 '>
