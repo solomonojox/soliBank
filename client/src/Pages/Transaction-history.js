@@ -34,6 +34,12 @@ function TransactionHistory() {
     fetchTransactions();
   }, [location.state._id]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [transactionsPerPage] = useState(10);
+  const indexOfLastItem = currentPage * transactionsPerPage;
+  const indexOfFirstItem = indexOfLastItem - transactionsPerPage
+  const currentTransactions = transactions.slice(indexOfFirstItem, indexOfLastItem)
+
   const navigateDashboard = () => {
     navigate(`/dashboard`, { state: location.state });
   };
@@ -76,6 +82,11 @@ function TransactionHistory() {
     };
   });
 
+  const pageNumber = []
+  for(let i =1; i <= Math.ceil(transactions.length / transactionsPerPage); i++){
+    pageNumber.push(i)
+  }
+
   return (
     <div className='p-4'>
       {isLoading && (
@@ -100,12 +111,12 @@ function TransactionHistory() {
       <div className='w-[100%] px-1 md:px-[50px] my-5 '>
         <h3 className='font-bold text-[25px] p-4 '>Transaction History</h3>
         {/* Transaction History */}
-        <div className='bg-[purple] py-4 md:w-[350px] md:h-[200px] text-white md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
+        <div className='py-4 md:w-[350px] md:h-[200px]  md:overflow-scroll md:overflow-x-hidden rounded-lg md:rounded-none  '>
           {transactions.length > 0 ? (
             <div>
-              <ul className='grid gap-2'>
-                {transactions.map((transaction, index) => (
-                  <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] '>
+              <ul className='grid gap-2 text-white '>
+                {currentTransactions.map((transaction, index) => (
+                  <li key={index} className='flex justify-between p-2 text-[12px] border-b border-[#ffffff50] bg-[purple] '>
                     <div className='flex gap-2'>
                       <div className='flex items-center justify-center w-[35px] h-[35px] bg-[white] rounded-full '>
                         <img src={`./images/${transaction.type}.svg`} alt='img' className='w-[15px] ' />
@@ -119,6 +130,39 @@ function TransactionHistory() {
                   </li>
                 ))}
               </ul>
+
+              <div className='flex gap-5 mt-6 justify-center bg-[#fadffa] font-medium py-2 '>
+                <button
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  disabled={currentPage === pageNumber[0]}
+                  style={currentPage === pageNumber[0] ? {
+                    cursor: 'not-allowed',
+                    opacity: '50%'
+                  } : null}>Prev
+                </button>
+                {pageNumber.map((number, index) =>
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(number)}
+                    style={currentPage === number ? {
+                      backgroundColor: 'purple',
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: '10%',
+                      padding: '2px 5px'
+                    } : null}>{number}</button>
+                )}
+                <button
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === pageNumber.length}
+                  style={currentPage === pageNumber.length ? {
+                    cursor: 'not-allowed',
+                    opacity: '50%'
+                  } : null}>Next
+                </button>
+              </div>
             </div>
           ) : (
             <p>No transactions found.{message}</p>
